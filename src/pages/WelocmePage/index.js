@@ -1,0 +1,1 @@
+const WelcomePage = <WelcomePage></WelcomePage>;
