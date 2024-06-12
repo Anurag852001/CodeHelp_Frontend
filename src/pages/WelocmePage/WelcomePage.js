@@ -7,7 +7,7 @@ function WelcomePage() {
     let headers = new Headers({
       "Access-Control-Allow-Origin": "*",
     });
-    fetch("http://localhost:8000/welcome/api", {
+    fetch("/welcome/api", {
       method: "GET",
       headers: headers,
     })
