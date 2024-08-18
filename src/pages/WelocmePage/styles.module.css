@@ -1,0 +1,21 @@
+.background {
+  background-color: #080101;
+  border-radius: 8px;
+  padding: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.welcomeText {
+  color: rgb(249, 243, 243);
+  margin: 0;
+  text-align: center;
+  font-size: 40px;
+}

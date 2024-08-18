@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from "react";
-
+import { fetchWelcomeApi } from "../../apiUtils/apiCalls";
+import styles from "./styles.module.css";
 function WelcomePage() {
   const [response, setResponse] = useState(null);
 
+  // the welcome page api
   useEffect(() => {
-    let headers = new Headers({
-      "Access-Control-Allow-Origin": "*",
-    });
-    fetch("/welcome/api", {
-      method: "GET",
-      headers: headers,
-    })
-      .then((result) => result.json())
+    fetchWelcomeApi()
       .then((data) => setResponse(data))
       .catch((err) => {
-        console.log(
-          "Got some error while fetching from the welcome api:" + err
-        );
+        console.log("Error occurred:", err);
       });
   }, []);
 
   return (
-    <div>
-      {response ? <div>{response.message}</div> : <div>Loading...</div>}
+    <div className={styles.background}>
+      <div className={styles.welcomeText}>
+        {response === null ? "..is Loading" : response.message}
+      </div>
     </div>
   );
 }
