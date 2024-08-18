@@ -1,0 +1,58 @@
+/* General styles for the page */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif; /* Set your desired font */
+  background-color: #333; /* Adjust background color as needed */
+  height: 100vh; /* Ensure body takes up full viewport height */
+}
+
+.container {
+  display: flex;
+  height: 100vh; /* Full height of the viewport */
+}
+
+/* Left section */
+.leftSection {
+  width: 20%;
+  height: 100%; /* Full height */
+  padding: 10px;
+  background-color: #444; /* Dark background for contrast */
+  color: white;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Right section */
+.rightSection {
+  flex: 1;
+  padding: 10px;
+}
+
+/* Styles for headings and descriptions */
+.problemHeading {
+  margin-bottom: 50%;
+}
+
+.description {
+  color: white;
+}
+
+.problemHeading {
+  font-size: 20px;
+}
+
+.description {
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+/* White line between heading and description */
+.description::before {
+  content: "";
+  display: block;
+  height: 1px; /* Adjust thickness as needed */
+  background-color: white;
+  margin-bottom: 10px; /* Spacing below the line */
+}
