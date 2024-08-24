@@ -1,58 +1,190 @@
-/* General styles for the page */
+/* SolveProblem.module.css */
+
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif; /* Set your desired font */
-  background-color: #333; /* Adjust background color as needed */
-  height: 100vh; /* Ensure body takes up full viewport height */
+  font-family: "Arial", sans-serif;
+  background: linear-gradient(
+    135deg,
+    #1c1c1c,
+    #2c2c2c
+  ); /* Subtle gradient for a futuristic feel */
+  color: #e0e0e0;
+  height: 100vh;
+  overflow: hidden; /* Remove this if you want global scrolling */
 }
 
+/* Container for the entire page */
 .container {
   display: flex;
-  height: 100vh; /* Full height of the viewport */
+  height: 100vh;
+  color: #e0e0e0;
+  overflow: hidden; /* Ensure no overflow at this level */
 }
 
-/* Left section */
+/* Left section styling */
 .leftSection {
-  width: 20%;
-  height: 100%; /* Full height */
-  padding: 10px;
-  background-color: #444; /* Dark background for contrast */
-  color: white;
+  width: 35%;
+  height: 100%;
+  padding: 20px;
+  background-color: #2a2a2a; /* Slightly darker background for better contrast */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  border-right: 2px solid #444;
+  overflow-y: auto; /* Allow vertical scrolling */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 8px; /* Rounded corners for a modern look */
 }
 
-/* Right section */
+.leftSection:hover {
+  background-color: #383838;
+  transform: scale(1.02);
+}
+
+/* Right section styling */
 .rightSection {
   flex: 1;
-  padding: 10px;
+  padding: 20px;
+  background-color: #1c1c1c; /* Darker background for consistency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  border-radius: 8px; /* Rounded corners */
+  overflow: auto; /* Allow scrolling within right section if necessary */
 }
 
-/* Styles for headings and descriptions */
+.rightSection:hover {
+  background-color: #2a2a2a;
+}
+
+/* Heading styles */
 .problemHeading {
-  margin-bottom: 50%;
+  font-size: 1.3 rem; /* Use rem units for better scalability */
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20px;
 }
 
+/* Feedback section styling */
+.feedBackSection {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.likes,
+.dislikes {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem; /* Use rem units */
+}
+
+.likes {
+  color: #66bb6a;
+}
+
+.dislikes {
+  color: #ef5350;
+}
+
+.thumb {
+  width: 5px;
+  height: 5px;
+}
+
+/* Description styling */
 .description {
-  color: white;
+  font-size: 15px; /* Use rem units */
+  line-height: 1.6;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #2a2a2a;
+  border: 1px solid #555;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4); /* Slightly deeper shadow */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  flex: 1;
 }
 
-.problemHeading {
+.description:hover {
+  background-color: #333;
+  transform: scale(1.01);
+}
+
+/* Examples section */
+.examples {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  flex: 1;
+}
+
+.examples:hover {
+  background-color: #333;
+  transform: scale(1.01);
+}
+
+.example {
   font-size: 20px;
+  margin-bottom: 15px;
 }
 
-.description {
-  font-size: 16px;
-  margin-top: 10px;
+.descriptionHeading,
+.constraintHeading,
+.exampleHeading {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 10px;
 }
 
-/* White line between heading and description */
-.description::before {
-  content: "";
-  display: block;
-  height: 1px; /* Adjust thickness as needed */
-  background-color: white;
-  margin-bottom: 10px; /* Spacing below the line */
+.exampleInput,
+.exampleOutput,
+.exampleExplanation {
+  font-size: 15px;
+  margin-top: 5px;
+  padding-left: 12px;
+  border-left: 2px solid #666;
+}
+
+/* Compiler section */
+.compiler {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #e0e0e0;
+  padding: 25px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.compiler:hover {
+  background-color: #333;
+  transform: scale(1.01);
+}
+
+.constraints {
+  font-size: 15px;
+  line-height: 1.6;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #2a2a2a;
+  border: 1px solid #555;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  flex: 1;
+}
+
+.constraints:hover {
+  background-color: #333;
+  transform: scale(1.01);
 }

@@ -1,12 +1,80 @@
 import styles from "./SolveProblem.module.css";
 import globalStyles from "../../GlobalStyles.module.css";
+import { useEffect, useState } from "react";
+import { fetchQuestionApi } from "../../apiUtils/apiCalls";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
+import { addZoomListeners, removeZoomListeners } from "../../utils/zoomControl";
 
 function SolveProblemPage() {
+  const [response, setResponse] = useState(null);
+
+  useEffect(() => {
+    addZoomListeners();
+    return () => {
+      removeZoomListeners();
+    };
+  }, []);
+
+  useEffect(() => {
+    fetchQuestionApi()
+      .then((data) => setResponse(data.data))
+      .catch((err) => {
+        console.log("Error occured while fetching question");
+      });
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.leftSection}>
-        <div className={styles.problemHeading}>Problem Heading</div>
-        <div className={styles.description}>Description</div>
+        <div className={styles.problemHeading}>
+          {response != null ? response.questionBody.id : 1}.
+          {response != null ? response.questionBody.questionHeading : "heading"}
+        </div>
+        <div className={styles.feedBackSection}>
+          <div className={styles.likes}>
+            <ThumbUpIcon className={styles.thumb}></ThumbUpIcon>
+            {response != null ? response.questionBody.likes : 0}
+          </div>
+          <div className={styles.dislikes}>
+            <ThumbDownAltIcon className={styles.thumb}></ThumbDownAltIcon>
+            {response != null ? response.questionBody.dislikes : 0}
+          </div>
+        </div>
+        <div className={styles.description}>
+          <div className={styles.descriptionHeading}>Description</div>
+          {response != null ? response.questionBody.description : ""}
+        </div>
+        <div className={styles.examples}>
+          {response != null &&
+            response.questionExamples.map((example, index) => (
+              <div key={index} className={styles.example}>
+                <div className={styles.exampleHeading}>
+                  {example.exampleName}
+                </div>
+                <div className={styles.exampleInput}>
+                  Input:{example.exampleInput}{" "}
+                </div>
+                <div className={styles.exampleOutput}>
+                  Output:{example.exampleOutput}{" "}
+                </div>
+                <div className={styles.exampleExplanation}>
+                  Explanation:{example.explanation}{" "}
+                </div>
+              </div>
+            ))}
+        </div>
+        <div className={styles.constraints}>
+          <div className={styles.constraintHeading}>Constraints</div>
+          {response != null &&
+            response.questionConstraints.map((constraint, index) => (
+              <div key={index}>
+                <div className={styles.constraintDescription}>
+                  {constraint.constraintDescription}
+                </div>
+              </div>
+            ))}
+        </div>
       </div>
       <div className={styles.rightSection}>
         <div className={styles.compiler}>Compiler</div>
