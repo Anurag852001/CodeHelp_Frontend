@@ -5,9 +5,14 @@ import { fetchQuestionApi } from "../../apiUtils/apiCalls";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { addZoomListeners, removeZoomListeners } from "../../utils/zoomControl";
+import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
+import { AutoComplete } from "../../components/AutoComplete/AutoComplete";
+
+const allLanguages = ["c++", "java", "python"];
 
 function SolveProblemPage() {
   const [response, setResponse] = useState(null);
+  const [language, setLanguage] = useState("java");
 
   useEffect(() => {
     addZoomListeners();
@@ -28,9 +33,14 @@ function SolveProblemPage() {
     <div className={styles.container}>
       <div className={styles.leftSection}>
         <div className={styles.problemHeading}>
-          {response != null ? response.questionBody.id : 1}.
+          {response != null ? response.questionBody.id : 1}
+          {".  "}
           {response != null ? response.questionBody.questionHeading : "heading"}
+          <div className={styles.difficulty}>
+            {response && response.questionBody.difficulty}
+          </div>
         </div>
+
         <div className={styles.feedBackSection}>
           <div className={styles.likes}>
             <ThumbUpIcon className={styles.thumb}></ThumbUpIcon>
@@ -77,7 +87,17 @@ function SolveProblemPage() {
         </div>
       </div>
       <div className={styles.rightSection}>
-        <div className={styles.compiler}>Compiler</div>
+        <AutoComplete
+          className={styles.autoCompleteStyle}
+          defaultValue="java"
+          values={allLanguages}
+        />
+        <Editor
+          height="90vh"
+          defaultLanguage="java"
+          defaultValue="// some comment"
+          theme="vs-dark"
+        />
       </div>
     </div>
   );

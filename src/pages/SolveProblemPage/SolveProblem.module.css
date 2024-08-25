@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: "Arial", sans-serif;
+  font-family: "Noto Sans", sans-serif;
   background: linear-gradient(
     135deg,
     #1c1c1c,
@@ -35,24 +35,35 @@ body {
   overflow-y: auto; /* Allow vertical scrolling */
   transition: background-color 0.3s ease, transform 0.3s ease;
   border-radius: 8px; /* Rounded corners for a modern look */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-.leftSection:hover {
+/* .leftSection:hover {
   background-color: #383838;
   transform: scale(1.02);
-}
+} */
 
 /* Right section styling */
 .rightSection {
   flex: 1;
   padding: 20px;
-  background-color: #1c1c1c; /* Darker background for consistency */
+  background-color: #1c1c1c;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column; /* Align items horizontally */
+  justify-content: center; /* Center the items horizontally */
+  align-items: center; /* Center the items vertically */
   transition: background-color 0.3s ease;
-  border-radius: 8px; /* Rounded corners */
-  overflow: auto; /* Allow scrolling within right section if necessary */
+  border-radius: 8px;
+  overflow: auto;
+  position: relative;
+  gap: 10px;
+}
+
+.autoCompleteStyle {
+  margin-left: 100px;
+  height: 20px;
+  width: 20px;
 }
 
 .rightSection:hover {
@@ -65,6 +76,7 @@ body {
   font-weight: bold;
   color: #ffffff;
   margin-bottom: 20px;
+  display: block;
 }
 
 /* Feedback section styling */
@@ -91,13 +103,17 @@ body {
 }
 
 .thumb {
-  width: 5px;
-  height: 5px;
+  width: 23 px;
+  height: 23px;
 }
 
-/* Description styling */
+.thumb:hover {
+  color: white;
+  transform: scale(2.02);
+}
+
 .description {
-  font-size: 15px; /* Use rem units */
+  font-size: 18px;
   line-height: 1.6;
   margin-top: 20px;
   padding: 20px;
@@ -107,16 +123,20 @@ body {
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4); /* Slightly deeper shadow */
   transition: background-color 0.3s ease, transform 0.3s ease;
   flex: 1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 .description:hover {
   background-color: #333;
-  transform: scale(1.01);
+  transform: scale(1.01) translateZ(0);
+  transition: transform 0.1s ease-in-out;
 }
 
 /* Examples section */
 .examples {
   margin-top: 20px;
+  font-size: 18px;
   padding: 20px;
   background-color: #2a2a2a;
   border-radius: 8px;
@@ -172,7 +192,7 @@ body {
 }
 
 .constraints {
-  font-size: 15px;
+  font-size: 18px;
   line-height: 1.6;
   margin-top: 20px;
   padding: 20px;
@@ -187,4 +207,17 @@ body {
 .constraints:hover {
   background-color: #333;
   transform: scale(1.01);
+}
+
+.difficulty {
+  margin-top: 10px;
+  font-size: small;
+  border: 1px solid #555;
+  background-color: green;
+  border-radius: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  padding: 5px;
+  height: 20px;
+  width: 50px;
 }
