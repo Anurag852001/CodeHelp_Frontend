@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
-
+import { fetchWelcomeApi } from "../../apiUtils/apiCalls";
+import { useNavigate } from "react-router-dom";
+import styles from "./styles.module.css";
 function WelcomePage() {
   const [response, setResponse] = useState(null);
+  const navigate = useNavigate();
 
+  // the welcome page api
   useEffect(() => {
-    let headers = new Headers({
-      "Access-Control-Allow-Origin": "*",
-    });
-    fetch("http://localhost:8000/welcome/api", {
-      method: "GET",
-      headers: headers,
-    })
-      .then((result) => result.json())
+    fetchWelcomeApi()
       .then((data) => setResponse(data))
       .catch((err) => {
-        console.log(
-          "Got some error while fetching from the welcome api:" + err
-        );
+        console.log("Error occurred:", err);
       });
   }, []);
 
+  function onClickHandler() {
+    navigate("/solve");
+  }
+
   return (
-    <div>
-      {response ? <div>{response.message}</div> : <div>Loading...</div>}
+    <div className={styles.background}>
+      <div className={styles.welcomeText}>
+        {response === null ? "..is Loading" : response.message}
+      </div>
+      <button className={styles.button} onClick={onClickHandler}>
+        Lets get started
+      </button>
     </div>
   );
 }

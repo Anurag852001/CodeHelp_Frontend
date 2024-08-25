@@ -1,0 +1,15 @@
+.background {
+  background-color: #080101; /* Dark background for contrast */
+  border-radius: 0px; /* Rounded corners */
+  padding: 20px; /* Add some padding inside the container */
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+  position: fixed; /* Fixed position to cover the screen */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+}
