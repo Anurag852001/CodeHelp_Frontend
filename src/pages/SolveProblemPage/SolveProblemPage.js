@@ -13,6 +13,7 @@ const allLanguages = ["c++", "java", "python"];
 function SolveProblemPage() {
   const [response, setResponse] = useState(null);
   const [language, setLanguage] = useState("java");
+  const [code, setCode] = useState("");
 
   useEffect(() => {
     addZoomListeners();
@@ -20,6 +21,14 @@ function SolveProblemPage() {
       removeZoomListeners();
     };
   }, []);
+
+  function onChangeHandler(event) {
+    setCode(event);
+  }
+
+  function onLanguageChangehandler(event) {
+    console.log(event);
+  }
 
   useEffect(() => {
     fetchQuestionApi()
@@ -90,10 +99,12 @@ function SolveProblemPage() {
         <AutoComplete
           className={styles.autoCompleteStyle}
           defaultValue="java"
+          onLanguageChange={onLanguageChangehandler}
           values={allLanguages}
         />
         <Editor
           height="90vh"
+          onChange={onChangeHandler}
           defaultLanguage="java"
           defaultValue="// some comment"
           theme="vs-dark"

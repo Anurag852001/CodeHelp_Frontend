@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styles from "./AutoComplete.module.css";
 
-export function AutoComplete({ defaultValue, values }) {
+export function AutoComplete({ defaultValue, values, onLanguageChange }) {
   const [value, setValue] = useState(defaultValue);
   const [showOptions, setShowOptions] = useState(false);
 
   const onClickHandler = (selectedValue) => {
     setValue(selectedValue);
+    onLanguageChange(selectedValue);
     setShowOptions(false);
   };
 
