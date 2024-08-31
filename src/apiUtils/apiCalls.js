@@ -1,3 +1,5 @@
+import { CompilerTypeEnums } from "../enums/CompilerTypeEnums";
+
 export async function fetchWelcomeApi() {
   try {
     const headers = new Headers({
@@ -43,5 +45,33 @@ export async function fetchQuestionApi() {
       "Something went wrong while fetching questio from question API: ",
       err
     );
+  }
+}
+
+export async function submitCodeApi(compilerType, code) {
+  try {
+    const headers = new Headers({
+      "Content-Type": "application/json", // Add this header
+    });
+
+    const body = JSON.stringify({
+      compilerType: CompilerTypeEnums.fromValue(compilerType),
+      code: code,
+    });
+
+    const response = await fetch(`/compile/code`, {
+      method: "POST",
+      headers: headers,
+      body: body,
+    });
+
+    if (!response.ok) {
+      throw new Error("Something went wrong while compiling the code");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Error in compile code API: " + err);
   }
 }
