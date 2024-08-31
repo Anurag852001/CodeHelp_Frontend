@@ -1,62 +1,64 @@
+/* AutoComplete.module.css */
 .autoCompleteContainer {
   position: relative;
   width: 200px;
-  border-radius: 20px; /* Rounded corners */
-  background-color: #1a1a1a; /* Darker, more modern background */
-  padding: 4px; /* Space around the input field */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 12px; /* Consistent rounded corners */
+  background-color: #1e1e1e; /* Darker background matching overall theme */
+  padding: 6px; /* Slightly more padding for comfort */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  margin-bottom: 15px; /* Space below the input */
 }
 
 .inputContainer {
-  color: #bd9898; /* Darker text color for contrast */
-  background-color: #110505; /* Light grey background for modern look */
-  border: none; /* Removed border for a cleaner look */
-  border-radius: 20px; /* Rounded corners for the input field */
-  padding: 10px 15px; /* Added padding for better spacing */
-  width: 100%; /* Full width within the container */
-  outline: none; /* Removes the focus outline */
+  color: #ececec; /* Light text color for contrast */
+  background-color: #2b2b2b; /* Darker background to match modern look */
+  border: none; /* No borders for a sleek appearance */
+  border-radius: 12px; /* Consistent rounded corners */
+  padding: 10px 15px; /* Comfortable padding */
+  width: 100%; /* Takes full width of the container */
+  outline: none; /* No focus outline */
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
   transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
 
 .inputContainer:focus {
-  background-color: #ffffff; /* Change background on focus */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow on focus */
+  background-color: #3a3a3a; /* Subtle change on focus for a modern touch */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow for focus state */
 }
 
 .autoCompleteOptions {
   list-style-type: none;
-  padding: 8px 0; /* Added vertical padding */
+  padding: 8px 0; /* Consistent padding */
   margin: 0;
-  border-radius: 12px; /* Rounded corners for the dropdown */
-  border: none; /* Removed border for a cleaner look */
+  border-radius: 10px; /* Matching rounded corners */
+  border: none; /* Clean look */
   max-height: 150px;
   overflow-y: auto;
   position: absolute;
   width: 100%;
-  background-color: #2c2c2c; /* Dark background for the dropdown */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow for dropdown */
-  z-index: 1;
+  background-color: #2c2c2c; /* Dark background matching overall theme */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Shadow for dropdown options */
+  z-index: 10;
   box-sizing: border-box; /* Ensures padding is included in the width calculation */
 }
 
 .autoCompleteOptions li {
-  padding: 10px 15px; /* More padding for a comfortable touch area */
-  color: #f0f0f0; /* Light grey text color for better readability */
-  background-color: #333; /* Dark background for dropdown items */
+  padding: 10px 15px; /* Comfortable touch area */
+  color: #dcdcdc; /* Light text for readability */
+  background-color: #333; /* Consistent dark background */
   cursor: pointer;
   border-radius: 8px; /* Rounded corners for each item */
-  margin: 4px 10px; /* Spacing around items for a cleaner look */
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+  margin: 5px 10px; /* Consistent spacing */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover transitions */
 }
 
 .autoCompleteOptions li:hover {
-  background-color: #444; /* Slightly lighter background on hover */
-  transform: translateY(-2px); /* Subtle lift effect on hover */
+  background-color: #444; /* Slightly lighter on hover */
+  transform: translateY(-2px); /* Subtle lift effect */
 }
 
 .autoCompleteOptions li:active {
-  background-color: #555; /* Darker background on click */
-  transform: translateY(0); /* Return to original position on click */
+  background-color: #555; /* Darker on click for feedback */
+  transform: translateY(0); /* Return to original position */
 }

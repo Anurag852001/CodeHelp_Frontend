@@ -1,12 +1,13 @@
 import styles from "./SolveProblem.module.css";
 import globalStyles from "../../GlobalStyles.module.css";
 import { useEffect, useState } from "react";
-import { fetchQuestionApi } from "../../apiUtils/apiCalls";
+import { fetchQuestionApi, submitCodeApi } from "../../apiUtils/apiCalls";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { addZoomListeners, removeZoomListeners } from "../../utils/zoomControl";
 import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
 import { AutoComplete } from "../../components/AutoComplete/AutoComplete";
+import ResultModal from "../../components/ResultModal/ResultModal";
 
 const allLanguages = ["c++", "java", "python"];
 
@@ -14,6 +15,8 @@ function SolveProblemPage() {
   const [response, setResponse] = useState(null);
   const [language, setLanguage] = useState("java");
   const [code, setCode] = useState("");
+  const [submitCodeResponse, setSubmitCodeResponse] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     addZoomListeners();
@@ -37,6 +40,15 @@ function SolveProblemPage() {
         console.log("Error occured while fetching question");
       });
   }, []);
+
+  function onCodeSubmitHandler() {
+    submitCodeApi(language, code)
+      .then((data) => setSubmitCodeResponse(data))
+      .catch((err) => {
+        console.log("Error while calling compile code api" + err);
+      });
+    setIsModalOpen(true);
+  }
 
   return (
     <div className={styles.container}>
@@ -103,11 +115,24 @@ function SolveProblemPage() {
           values={allLanguages}
         />
         <Editor
+          className={styles.editor}
           height="90vh"
           onChange={onChangeHandler}
           defaultLanguage="java"
           defaultValue="// some comment"
           theme="vs-dark"
+        />
+        <button
+          className={styles.SubmitButton}
+          value="submit"
+          onClick={onCodeSubmitHandler}
+        >
+          Submit
+        </button>
+        <ResultModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          result={submitCodeResponse != null && submitCodeResponse.data}
         />
       </div>
     </div>
