@@ -1,7 +1,11 @@
 import styles from "./SolveProblem.module.css";
 import globalStyles from "../../GlobalStyles.module.css";
 import { useEffect, useState } from "react";
-import { fetchQuestionApi, submitCodeApi } from "../../apiUtils/apiCalls";
+import {
+  fetchDefaultCodeApi,
+  fetchQuestionApi,
+  submitCodeApi,
+} from "../../apiUtils/apiCalls";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { addZoomListeners, removeZoomListeners } from "../../utils/zoomControl";
@@ -17,6 +21,7 @@ function SolveProblemPage() {
   const [code, setCode] = useState("");
   const [submitCodeResponse, setSubmitCodeResponse] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [defaultCode, setDefaultCode] = useState("");
 
   useEffect(() => {
     addZoomListeners();
@@ -36,6 +41,14 @@ function SolveProblemPage() {
   useEffect(() => {
     fetchQuestionApi()
       .then((data) => setResponse(data.data))
+      .catch((err) => {
+        console.log("Error occured while fetching question");
+      });
+  }, []);
+
+  useEffect(() => {
+    fetchDefaultCodeApi()
+      .then((data) => setDefaultCode(data.data.defaultCode))
       .catch((err) => {
         console.log("Error occured while fetching question");
       });
@@ -119,7 +132,7 @@ function SolveProblemPage() {
           height="90vh"
           onChange={onChangeHandler}
           defaultLanguage="java"
-          defaultValue="// some comment"
+          defaultValue={defaultCode}
           theme="vs-dark"
         />
         <button
