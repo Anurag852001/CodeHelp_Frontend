@@ -12,6 +12,7 @@ import { addZoomListeners, removeZoomListeners } from "../../utils/zoomControl";
 import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
 import { AutoComplete } from "../../components/AutoComplete/AutoComplete";
 import ResultModal from "../../components/ResultModal/ResultModal";
+import { useLocation, useParams } from "react-router-dom";
 
 const allLanguages = ["c++", "java", "python"];
 
@@ -22,6 +23,9 @@ function SolveProblemPage() {
   const [submitCodeResponse, setSubmitCodeResponse] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [defaultCode, setDefaultCode] = useState("");
+  const [qNo, setQNo] = useState(5);
+  const { index } = useParams();
+  // Extract the index from state
 
   useEffect(() => {
     addZoomListeners();
@@ -39,7 +43,10 @@ function SolveProblemPage() {
   }
 
   useEffect(() => {
-    fetchQuestionApi()
+    if (index == NaN) {
+      index = 5;
+    }
+    fetchQuestionApi(parseInt(index, 10))
       .then((data) => setResponse(data.data))
       .catch((err) => {
         console.log("Error occured while fetching question");
@@ -47,8 +54,14 @@ function SolveProblemPage() {
   }, []);
 
   useEffect(() => {
-    fetchDefaultCodeApi()
-      .then((data) => setDefaultCode(data.data.defaultCode))
+    if (index == NaN) {
+      index = 5;
+    }
+    fetchDefaultCodeApi(parseInt(index, 10))
+      .then((data) => {
+        setDefaultCode(data.data.defaultCode);
+        setCode(defaultCode);
+      })
       .catch((err) => {
         console.log("Error occured while fetching question");
       });

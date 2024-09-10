@@ -1,0 +1,29 @@
+/* NavigationBar.module.css */
+.NavigationBar {
+  display: flex;
+  justify-content: left;
+  background-color: #222; /* Slightly darker background */
+  padding: 8px 16px; /* Reduced padding */
+}
+
+.NavList {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.NavItem {
+  margin: 0 10px; /* Reduced margin */
+}
+
+.NavLink {
+  color: #ddd; /* Softer text color */
+  text-decoration: none;
+  font-weight: normal; /* Removed bold to simplify */
+  transition: color 0.2s ease; /* Slightly quicker transition */
+}
+
+.NavLink:hover {
+  color: #888; /* Subtle hover effect */
+}

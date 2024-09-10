@@ -23,13 +23,13 @@ export async function fetchWelcomeApi() {
   }
 }
 
-export async function fetchQuestionApi() {
+export async function fetchQuestionApi(qNo) {
   try {
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
     });
 
-    const params = new URLSearchParams({ qNo: 5 });
+    const params = new URLSearchParams({ qNo: qNo });
     const response = await fetch(`/get/question?${params.toString()}`, {
       method: "GET",
       headers: headers,
@@ -48,14 +48,14 @@ export async function fetchQuestionApi() {
   }
 }
 
-export async function fetchDefaultCodeApi() {
+export async function fetchDefaultCodeApi(qNo) {
   try {
     const headers = new Headers({
       "Access-Control-Allow-Origin": "*",
     });
 
     const params = new URLSearchParams({
-      qid: 5,
+      qid: qNo,
       compilerType: "JAVA",
       wrapperCodeType: "DEFAULT_CODE",
     });
@@ -85,6 +85,7 @@ export async function submitCodeApi(compilerType, code) {
 
     const body = JSON.stringify({
       compilerType: CompilerTypeEnums.fromValue(compilerType),
+      qid: 6,
       code: code,
     });
 
@@ -102,5 +103,34 @@ export async function submitCodeApi(compilerType, code) {
     return data;
   } catch (err) {
     console.error("Error in compile code API: " + err);
+  }
+}
+
+export async function fetchGenericListApi(page, count, listingEnum) {
+  try {
+    const headers = new Headers({
+      "Access-Control-Allow-Origin": "*",
+    });
+
+    const params = new URLSearchParams({
+      page: page,
+      count: count,
+      listingEnum: listingEnum,
+    });
+    const response = await fetch(`/list/generic?${params.toString()}`, {
+      method: "GET",
+      headers: headers,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(
+      "Something went wrong while fetching wrapper code API: ",
+      err
+    );
   }
 }
