@@ -6,7 +6,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import MainPage from "./pages/MainPage/MainPage";
 
 function App() {
-  return <MainPage></MainPage>;
+  return (
+    <Router>
+      <MainPage></MainPage>
+    </Router>
+  );
 }
 
 export default App;

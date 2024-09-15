@@ -1,29 +1,39 @@
-/* NavigationBar.module.css */
 .NavigationBar {
-  display: flex;
-  justify-content: left;
-  background-color: #222; /* Slightly darker background */
-  padding: 8px 16px; /* Reduced padding */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  color: white;
+  padding: 0.01rem; /* Reduced padding */
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.Visible {
+  transform: translateY(0); /* Fully visible */
+}
+
+.Hidden {
+  transform: translateY(-100%); /* Hidden above the screen */
 }
 
 .NavList {
-  display: flex;
   list-style: none;
-  padding: 0;
-  margin: 0;
+  display: flex;
+  justify-content: space-around;
 }
 
 .NavItem {
-  margin: 0 10px; /* Reduced margin */
+  margin: 0 0.5rem; /* Reduced margin */
 }
 
 .NavLink {
-  color: #ddd; /* Softer text color */
+  color: white;
   text-decoration: none;
-  font-weight: normal; /* Removed bold to simplify */
-  transition: color 0.2s ease; /* Slightly quicker transition */
+  font-size: 1rem; /* Reduced font size */
 }
 
 .NavLink:hover {
-  color: #888; /* Subtle hover effect */
+  text-decoration: underline;
 }

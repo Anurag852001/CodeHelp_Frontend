@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  align-items: center; /* Align items vertically centered */
+  padding: 20px; /* Add padding around the container */
+  border-radius: 8px; /* Rounded corners */
+}
+
+.image {
+  background-color: ;
+  width: 50px; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 10px; /* Space between image and text */
+}
+
+.textContainer {
+  display: flex;
+  flex-direction: column; /* Stack text and slogan vertically */
+  align-items: center; /* Align text to the left */
+}
+
+.mainLogoText {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 30px; /* Font size for the main text */
+  font-weight: bold; /* Bold font weight */
+  color: #ffffff; /* White text color */
+  margin: 0; /* Remove margin */
+}
+
+.Slogan {
+  font-size: 10px; /* Font size for the slogan */
+  font-style: italic; /* Italicize the slogan */
+  color: #cccccc; /* Light gray text color */
+  margin-top: 0px; /* Space between main text and slogan */
+}

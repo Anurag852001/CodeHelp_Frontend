@@ -9,10 +9,10 @@ import {
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import { addZoomListeners, removeZoomListeners } from "../../utils/zoomControl";
-import Editor, { DiffEditor, useMonaco, loader } from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
 import { AutoComplete } from "../../components/AutoComplete/AutoComplete";
 import ResultModal from "../../components/ResultModal/ResultModal";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const allLanguages = ["c++", "java", "python"];
 
@@ -24,7 +24,9 @@ function SolveProblemPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [defaultCode, setDefaultCode] = useState("");
   const [qNo, setQNo] = useState(5);
-  const { index } = useParams();
+  const [loading, setLoading] = useState(true);
+  let { index } = useParams();
+
   // Extract the index from state
 
   useEffect(() => {
@@ -43,37 +45,46 @@ function SolveProblemPage() {
   }
 
   useEffect(() => {
-    if (index == NaN) {
+    if (isNaN(index)) {
       index = 5;
     }
-    fetchQuestionApi(parseInt(index, 10))
+    setQNo(parseInt(index, 10));
+    setLoading(true); // Start loading
+    fetchQuestionApi(qNo)
       .then((data) => setResponse(data.data))
       .catch((err) => {
-        console.log("Error occured while fetching question");
+        console.log("Error occurred while fetching question");
       });
   }, []);
 
   useEffect(() => {
-    if (index == NaN) {
+    if (isNaN(index)) {
       index = 5;
     }
     fetchDefaultCodeApi(parseInt(index, 10))
       .then((data) => {
         setDefaultCode(data.data.defaultCode);
-        setCode(defaultCode);
+        setCode(data.data.defaultCode); // Corrected to set the code
+      })
+      .finally(() => {
+        setLoading(false);
       })
       .catch((err) => {
-        console.log("Error occured while fetching question");
+        console.log("Error occurred while fetching default code");
       });
-  }, []);
+  }, [index]);
 
   function onCodeSubmitHandler() {
     submitCodeApi(language, code)
       .then((data) => setSubmitCodeResponse(data))
       .catch((err) => {
-        console.log("Error while calling compile code api" + err);
+        console.log("Error while calling compile code API: " + err);
       });
     setIsModalOpen(true);
+  }
+
+  if (loading) {
+    return <div>Loading...</div>; // Simple loading indicator
   }
 
   return (

@@ -1,40 +1,51 @@
-/* ProblemSet.module.css */
+/* Animation keyframes for sliding down */
+@keyframes slideDown {
+  0% {
+    transform: translateY(
+      -30px
+    ); /* Start slightly above the initial position */
+    opacity: 0; /* Start invisible */
+  }
+  100% {
+    transform: translateY(0); /* End at the original position */
+    opacity: 1; /* Fully visible */
+  }
+}
 
 /* General Styling for the container */
 .problemSetContainer {
-  padding: 16px; /* Reduced padding for a cleaner look */
-  max-width: 750px; /* Slightly narrower for a tighter feel */
-  margin: 0 auto;
-  background-color: #252525; /* Slightly muted dark background */
-  border-radius: 8px; /* Softer corners */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Subtle shadow */
-  color: #dcdcdc; /* Softer text color for a refined contrast */
+  padding: 16px;
+  max-width: 100%;
+  background-color: #252525;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  color: #dcdcdc;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 300px;
 }
 
-/* Styling for the ordered list */
-.problemList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-/* Styling for each list item */
+/* Styling for each list item with animation */
 .problemItem {
   display: flex;
   justify-content: space-between;
-  padding: 10px 14px; /* Reduced padding for simplicity */
+  padding: 10px 14px;
   margin: 6px 0;
-  background-color: #303030; /* Minimal contrast between items and background */
+  background-color: #303030;
   border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Light shadow for minimalism */
-  transition: transform 0.15s ease, box-shadow 0.15s ease; /* Quicker transitions */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
   cursor: pointer;
+  width: 1000px;
+  animation: slideDown 2s ease-out; /* Slowed down animation */
 }
 
 /* Hover effect for list items */
 .problemItem:hover {
-  transform: translateY(-1px); /* Minimal hover effect */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15); /* Soft shadow on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
 /* Question heading styling */
@@ -49,4 +60,13 @@
   font-size: 13px; /* Reduced size for subtler appearance */
   font-weight: 400; /* Lighter weight */
   color: #b0b0b0; /* Softer gray for a minimalist touch */
+}
+
+.problemText {
+  font-size: 100px;
+  text-align: center;
+  transition: transform 10.5s ease, box-shadow 10.15s ease;
+  padding: auto;
+  margin-bottom: 40px;
+  animation: slideDown 2s ease-out;
 }
