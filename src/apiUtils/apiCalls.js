@@ -1,5 +1,6 @@
 import { CompilerTypeEnums } from "../enums/CompilerTypeEnums";
 
+const codeHelpAiBackend = "http://localhost:8080";
 export async function fetchWelcomeApi() {
   try {
     const headers = new Headers({
@@ -132,5 +133,31 @@ export async function fetchGenericListApi(page, count, listingEnum) {
       "Something went wrong while fetching wrapper code API: ",
       err
     );
+  }
+}
+
+export async function chatApi(question) {
+  try {
+    const headers = new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    });
+
+    const body = JSON.stringify({
+      question: question,
+    });
+    const response = await fetch(codeHelpAiBackend + `/chat`, {
+      method: "POST",
+      headers: headers,
+      body: body,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Something went wrong while calling chat api: ", err);
   }
 }

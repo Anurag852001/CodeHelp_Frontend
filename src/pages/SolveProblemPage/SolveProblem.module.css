@@ -167,4 +167,200 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
   background-color: #1e1e1e; /* Dark background matching the rest of the theme */
   transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
+  transition: height 0.3s ease;
+}
+
+.SubmitButton:disabled {
+  background-color: #bdc3c7;
+  color: #7f8c8d;
+  cursor: not-allowed;
+}
+
+.description:hover,
+.examples:hover,
+.constraints:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .problemHeading {
+    font-size: 20px; /* Adjust heading size for smaller screens */
+  }
+}
+
+/* Star Image Style */
+.starImage {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 50%;
+  position: relative;
+  transition: transform 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.starImage:hover {
+  transform: scale(1.2) rotate(20deg); /* Slight grow and rotate on hover */
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.5); /* Glow effect */
+}
+
+/* Sparkle Effect */
+/* Main AI Section */
+.aiSection {
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 680px;
+  padding: 10px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.5s ease-in-out, border-color 0.5s ease-in-out;
+}
+
+/* Glowing effect on hover */
+.aiSection:hover {
+  border-color: #2e2b1c; /* Golden glow border */
+  box-shadow: 0 0 20px rgba(22, 21, 8, 0.8), 0 0 40px rgba(255, 223, 0, 0.5);
+}
+
+/* Sparkle effect with pseudo-elements */
+.aiSection:hover::before,
+.aiSection:hover::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(205, 7, 7, 0.6);
+  animation: sparkle 1s infinite alternate ease-in-out;
+  opacity: 0;
+}
+
+/* First sparkle */
+.aiSection:hover::before {
+  top: -10px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  animation-delay: 0.2s;
+}
+
+/* Second sparkle */
+.aiSection:hover::after {
+  bottom: -10px;
+  right: 50%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 0.6s;
+}
+
+/* Additional Sparkle Elements */
+.aiSection:hover .sparkle-1,
+.aiSection:hover .sparkle-2,
+.aiSection:hover .sparkle-3 {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  animation: sparkle 1s infinite alternate ease-in-out;
+  opacity: 0;
+}
+
+.aiSection:hover .sparkle-1 {
+  top: 20px;
+  left: 10px;
+  width: 8px;
+  height: 80px;
+  animation-delay: 0.3s;
+}
+
+.aiSection:hover .sparkle-2 {
+  top: 50%;
+  left: -10px;
+  width: 12px;
+  height: 12px;
+  animation-delay: 0.5s;
+}
+
+.aiSection:hover .sparkle-3 {
+  bottom: 20px;
+  right: 10px;
+  width: 10px;
+  height: 10px;
+  animation-delay: 0.7s;
+}
+
+/* Keyframes for sparkling effect */
+@keyframes sparkle {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.testCaseSubmitter {
+  padding: 10px;
+}
+
+.testCaseInput {
+  height: 150px; /* Larger height for more input visibility */
+  width: 100%;
+  background-color: rgb(61, 45, 45);
+  color: white;
+  border: 1px solid #dfe1e5; /* Light border like LeetCode */
+  border-radius: 1px;
+  padding: 10px;
+  font-size: 14px;
+
+  box-sizing: border-box;
+  margin-bottom: 10px; /* Add margin to separate from buttons */
+  resize: none; /* Prevent resizing */
+}
+
+.submitButton:hover {
+  background-color: #0056b3;
+}
+.testCaseSubmitterAndTogglerButtons {
+  display: flex; /* Flexbox to align items in a row */
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between buttons */
+  margin-top: 80px;
+  margin-right: 20px; /* Add some top margin for separation */
+  transition: height 0.3s ease;
+}
+
+.submitButton {
+  width: 90px;
+  height: 40px;
+  font-size: 16px;
+  color: #f7e5e5;
+  background-color: #1c0d0d;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggleShowTestCaseSubmitter {
+  width: 40px;
+  height: 40px;
+  font-size: 16px;
+  color: #f7e5e5;
+  background-color: #1c0d0d;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggleShowTestCaseSubmitter:hover,
+.submitButton:hover {
+  background-color: #e2e2e2; /* Add a hover effect */
 }

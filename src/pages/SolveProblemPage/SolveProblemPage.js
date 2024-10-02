@@ -8,11 +8,11 @@ import {
 } from "../../apiUtils/apiCalls";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
-import { addZoomListeners, removeZoomListeners } from "../../utils/zoomControl";
 import Editor from "@monaco-editor/react";
 import { AutoComplete } from "../../components/AutoComplete/AutoComplete";
 import ResultModal from "../../components/ResultModal/ResultModal";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import starImage from "../../resources/star.svg";
 
 const allLanguages = ["c++", "java", "python"];
 
@@ -26,15 +26,13 @@ function SolveProblemPage() {
   const [qNo, setQNo] = useState(5);
   const [loading, setLoading] = useState(true);
   let { index } = useParams();
+  const navigate = useNavigate();
+  const [showTestCaseSubmitter, setShowTestCaseSubmitter] = useState(false);
+  const [heightOfEditor, setHeightOfEditor] = useState("1000px");
+  const [heightOfTestCaseInput, setHeightOfTestCaseInput] = useState("10px");
+  const [marginOfButtons, setMarginsOfButtons] = useState("10px");
 
   // Extract the index from state
-
-  useEffect(() => {
-    addZoomListeners();
-    return () => {
-      removeZoomListeners();
-    };
-  }, []);
 
   function onChangeHandler(event) {
     setCode(event);
@@ -56,6 +54,16 @@ function SolveProblemPage() {
         console.log("Error occurred while fetching question");
       });
   }, []);
+
+  function onAiSectionClickHandler() {
+    navigate("/chat");
+  }
+
+  function toggleShowTestCaseSubmitter() {
+    setShowTestCaseSubmitter(!showTestCaseSubmitter);
+    setHeightOfEditor(heightOfEditor === "1000px" ? "400px" : "1000px");
+    setMarginsOfButtons(marginOfButtons === "10px" ? "140px" : "10px");
+  }
 
   useEffect(() => {
     if (isNaN(index)) {
@@ -143,6 +151,17 @@ function SolveProblemPage() {
               </div>
             ))}
         </div>
+        <div className={styles.aiSection} onClick={onAiSectionClickHandler}>
+          <div className={styles.aiButton}>
+            Having Problem? Try our brand new AI features to understand the
+            problem
+          </div>
+          <img
+            src={starImage}
+            alt="star image"
+            className={styles.starImage}
+          ></img>
+        </div>
       </div>
       <div className={styles.rightSection}>
         <AutoComplete
@@ -153,19 +172,36 @@ function SolveProblemPage() {
         />
         <Editor
           className={styles.editor}
-          height="90vh"
+          height={heightOfEditor}
           onChange={onChangeHandler}
           defaultLanguage="java"
           defaultValue={defaultCode}
           theme="vs-dark"
         />
-        <button
-          className={styles.SubmitButton}
-          value="submit"
-          onClick={onCodeSubmitHandler}
-        >
-          Submit
-        </button>
+        <div className={styles.testCaseSubmitterWrapper}>
+          {showTestCaseSubmitter && (
+            <div
+              className={styles.testCaseSubmitter}
+              style={{ height: heightOfTestCaseInput }}
+            >
+              <textarea className={styles.testCaseInput}></textarea>
+            </div>
+          )}
+          <div
+            className={styles.testCaseSubmitterAndTogglerButtons}
+            style={{ marginTop: marginOfButtons }}
+          >
+            <button
+              className={styles.toggleShowTestCaseSubmitter}
+              onClick={toggleShowTestCaseSubmitter}
+            >
+              ^
+            </button>
+            {showTestCaseSubmitter && (
+              <button className={styles.submitButton}>Submit </button>
+            )}
+          </div>
+        </div>
         <ResultModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}

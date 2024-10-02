@@ -10,6 +10,7 @@ import SolveProblemPage from "../SolveProblemPage/SolveProblemPage";
 import WelcomePage from "../WelocmePage/WelcomePage";
 import ProblemSet from "../ProblemSetPage/ProblemSet";
 import styles from "./MainPage.module.css"; // Import the CSS module
+import ChatPage from "../ChatPage/ChatPage";
 
 function MainPage() {
   const items = [
@@ -20,7 +21,8 @@ function MainPage() {
   const location = useLocation();
   const shouldShowNavBar = !(
     location.pathname.startsWith("/solve") ||
-    location.pathname.startsWith("/welcome")
+    location.pathname.startsWith("/welcome") ||
+    location.pathname.startsWith("/chat")
   );
 
   return (
@@ -32,6 +34,7 @@ function MainPage() {
             <Route path="/welcome" element={<WelcomePage />} />
             <Route path="/solve/:index" element={<SolveProblemPage />} />
             <Route path="/" element={<ProblemSet />} />
+            <Route path="/chat" element={<ChatPage />} />
           </Routes>
         </div>
       </div>
