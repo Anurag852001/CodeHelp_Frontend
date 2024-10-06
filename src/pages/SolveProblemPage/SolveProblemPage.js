@@ -31,6 +31,7 @@ function SolveProblemPage() {
   const [heightOfEditor, setHeightOfEditor] = useState("1000px");
   const [heightOfTestCaseInput, setHeightOfTestCaseInput] = useState("10px");
   const [marginOfButtons, setMarginsOfButtons] = useState("10px");
+  const [testCase, setTestCase] = useState(null);
 
   // Extract the index from state
 
@@ -38,8 +39,21 @@ function SolveProblemPage() {
     setCode(event);
   }
 
+  function onTestCaseTextAreaChangeHandler(event) {
+    setTestCase(event.target.value);
+  }
+
   function onLanguageChangehandler(event) {
     console.log(event);
+  }
+
+  function onRunCode() {
+    submitCodeApi(language, code, false, testCase)
+      .then((data) => setSubmitCodeResponse(data))
+      .catch((err) => {
+        console.log("Error while calling compile code API: " + err);
+      });
+    setIsModalOpen(true);
   }
 
   useEffect(() => {
@@ -83,7 +97,7 @@ function SolveProblemPage() {
   }, [index]);
 
   function onCodeSubmitHandler() {
-    submitCodeApi(language, code)
+    submitCodeApi(language, code, true, null)
       .then((data) => setSubmitCodeResponse(data))
       .catch((err) => {
         console.log("Error while calling compile code API: " + err);
@@ -184,7 +198,10 @@ function SolveProblemPage() {
               className={styles.testCaseSubmitter}
               style={{ height: heightOfTestCaseInput }}
             >
-              <textarea className={styles.testCaseInput}></textarea>
+              <textarea
+                className={styles.testCaseInput}
+                onChange={onTestCaseTextAreaChangeHandler}
+              ></textarea>
             </div>
           )}
           <div
@@ -198,7 +215,17 @@ function SolveProblemPage() {
               ^
             </button>
             {showTestCaseSubmitter && (
-              <button className={styles.submitButton}>Submit </button>
+              <div className={styles.theTwoButtons}>
+                <button className={styles.submitButton} onClick={onRunCode}>
+                  Run{" "}
+                </button>
+                <button
+                  className={styles.submitButton}
+                  onClick={onCodeSubmitHandler}
+                >
+                  Submit{" "}
+                </button>
+              </div>
             )}
           </div>
         </div>

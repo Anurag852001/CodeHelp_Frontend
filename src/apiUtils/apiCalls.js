@@ -78,7 +78,7 @@ export async function fetchDefaultCodeApi(qNo) {
   }
 }
 
-export async function submitCodeApi(compilerType, code) {
+export async function submitCodeApi(compilerType, code, runOnAll, testCase) {
   try {
     const headers = new Headers({
       "Content-Type": "application/json", // Add this header
@@ -88,6 +88,8 @@ export async function submitCodeApi(compilerType, code) {
       compilerType: CompilerTypeEnums.fromValue(compilerType),
       qid: 6,
       code: code,
+      runOnAll: runOnAll,
+      testCase: testCase,
     });
 
     const response = await fetch(`/compile/code`, {
