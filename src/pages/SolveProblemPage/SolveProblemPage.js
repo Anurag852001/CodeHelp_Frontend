@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import {
   fetchDefaultCodeApi,
   fetchQuestionApi,
+  getMainCodeVariables,
   submitCodeApi,
 } from "../../apiUtils/apiCalls";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -13,6 +14,7 @@ import { AutoComplete } from "../../components/AutoComplete/AutoComplete";
 import ResultModal from "../../components/ResultModal/ResultModal";
 import { useNavigate, useParams } from "react-router-dom";
 import starImage from "../../resources/star.svg";
+import testCaseComplianceChecker from "../../utils/testCaseComplainceChecker";
 
 const allLanguages = ["c++", "java", "python"];
 
@@ -31,7 +33,8 @@ function SolveProblemPage() {
   const [heightOfEditor, setHeightOfEditor] = useState("1000px");
   const [heightOfTestCaseInput, setHeightOfTestCaseInput] = useState("10px");
   const [marginOfButtons, setMarginsOfButtons] = useState("10px");
-  const [testCase, setTestCase] = useState(null);
+  const [testCaseText, setTestCaseText] = useState(null);
+  const [mainCodeVariables, setMainCodeVariables] = useState(null);
 
   // Extract the index from state
 
@@ -40,7 +43,8 @@ function SolveProblemPage() {
   }
 
   function onTestCaseTextAreaChangeHandler(event) {
-    setTestCase(event.target.value);
+    console.log(event.target.value);
+    setTestCaseText(event.target.value);
   }
 
   function onLanguageChangehandler(event) {
@@ -48,11 +52,49 @@ function SolveProblemPage() {
   }
 
   function onRunCode() {
-    submitCodeApi(language, code, false, testCase)
+    let testcase = []; // Initialize as an empty array
+    let errorFound = false;
+
+    const splittedTestCaseText = testCaseText
+      .split("\n")
+      .filter((line) => line.trim() !== "");
+
+    console.log(splittedTestCaseText.length);
+
+    if (splittedTestCaseText.length != mainCodeVariables.variables.length) {
+      console.log("Invalid testcase");
+      return;
+    }
+
+    for (let i = 0; i < mainCodeVariables.variables.length; i++) {
+      const testCaseComplianceError = testCaseComplianceChecker(
+        mainCodeVariables.variables[i].type,
+        splittedTestCaseText[i]
+      );
+
+      if (testCaseComplianceError.length > 0) {
+        console.log(testCaseComplianceError);
+        errorFound = true; // Fix: set the boolean value
+      } else {
+        // Append an object to the testcase array
+        testcase.push({
+          variableNumber: mainCodeVariables.variables[i].variableNumber,
+          type: mainCodeVariables.variables[i].type,
+          value: splittedTestCaseText[i],
+        });
+      }
+    }
+
+    if (errorFound === true) return;
+
+    console.log(testcase); // Will now show an array of objects
+
+    submitCodeApi(language, code, false, testcase, qNo) // Pass the array instead of a string
       .then((data) => setSubmitCodeResponse(data))
       .catch((err) => {
         console.log("Error while calling compile code API: " + err);
       });
+
     setIsModalOpen(true);
   }
 
@@ -80,6 +122,16 @@ function SolveProblemPage() {
   }
 
   useEffect(() => {
+    getMainCodeVariables(qNo, language)
+      .then((data) => {
+        setMainCodeVariables(data);
+      })
+      .catch((err) => {
+        console.err("Error while geting main code variables");
+      });
+  }, []);
+
+  useEffect(() => {
     if (isNaN(index)) {
       index = 5;
     }
@@ -97,7 +149,7 @@ function SolveProblemPage() {
   }, [index]);
 
   function onCodeSubmitHandler() {
-    submitCodeApi(language, code, true, null)
+    submitCodeApi(language, code, true, null, qNo)
       .then((data) => setSubmitCodeResponse(data))
       .catch((err) => {
         console.log("Error while calling compile code API: " + err);

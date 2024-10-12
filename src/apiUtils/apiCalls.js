@@ -78,7 +78,13 @@ export async function fetchDefaultCodeApi(qNo) {
   }
 }
 
-export async function submitCodeApi(compilerType, code, runOnAll, testCase) {
+export async function submitCodeApi(
+  compilerType,
+  code,
+  runOnAll,
+  testCase,
+  qid
+) {
   try {
     const headers = new Headers({
       "Content-Type": "application/json", // Add this header
@@ -86,7 +92,7 @@ export async function submitCodeApi(compilerType, code, runOnAll, testCase) {
 
     const body = JSON.stringify({
       compilerType: CompilerTypeEnums.fromValue(compilerType),
-      qid: 6,
+      qid: qid,
       code: code,
       runOnAll: runOnAll,
       testCase: testCase,
@@ -149,6 +155,33 @@ export async function chatApi(question) {
       question: question,
     });
     const response = await fetch(codeHelpAiBackend + `/chat`, {
+      method: "POST",
+      headers: headers,
+      body: body,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Something went wrong while calling chat api: ", err);
+  }
+}
+
+export async function getMainCodeVariables(qid, language) {
+  try {
+    const headers = new Headers({
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    });
+
+    const body = JSON.stringify({
+      qid: qid,
+      language: language,
+    });
+    const response = await fetch("/get/mainCode/variables", {
       method: "POST",
       headers: headers,
       body: body,
