@@ -35,7 +35,7 @@ function SolveProblemPage() {
   const [marginOfButtons, setMarginsOfButtons] = useState("10px");
   const [testCaseText, setTestCaseText] = useState(null);
   const [mainCodeVariables, setMainCodeVariables] = useState(null);
-
+  const [errorInTestCase, setErrorInTestCase] = useState("");
   // Extract the index from state
 
   function onChangeHandler(event) {
@@ -54,6 +54,8 @@ function SolveProblemPage() {
   function onRunCode() {
     let testcase = []; // Initialize as an empty array
     let errorFound = false;
+    setErrorInTestCase(null);
+    setSubmitCodeResponse(null);
 
     const splittedTestCaseText = testCaseText
       .split("\n")
@@ -62,7 +64,9 @@ function SolveProblemPage() {
     console.log(splittedTestCaseText.length);
 
     if (splittedTestCaseText.length != mainCodeVariables.variables.length) {
-      console.log("Invalid testcase");
+      setErrorInTestCase("Invalid testcase, check the number of inputs");
+      errorFound = true;
+      setIsModalOpen(true);
       return;
     }
 
@@ -73,7 +77,7 @@ function SolveProblemPage() {
       );
 
       if (testCaseComplianceError.length > 0) {
-        console.log(testCaseComplianceError);
+        setErrorInTestCase(testCaseComplianceError);
         errorFound = true; // Fix: set the boolean value
       } else {
         // Append an object to the testcase array
@@ -85,7 +89,10 @@ function SolveProblemPage() {
       }
     }
 
-    if (errorFound === true) return;
+    if (errorFound === true) {
+      setIsModalOpen(true);
+      return;
+    }
 
     console.log(testcase); // Will now show an array of objects
 
@@ -149,6 +156,7 @@ function SolveProblemPage() {
   }, [index]);
 
   function onCodeSubmitHandler() {
+    setSubmitCodeResponse(null);
     submitCodeApi(language, code, true, null, qNo)
       .then((data) => setSubmitCodeResponse(data))
       .catch((err) => {
@@ -284,7 +292,11 @@ function SolveProblemPage() {
         <ResultModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          result={submitCodeResponse != null && submitCodeResponse.data}
+          result={
+            submitCodeResponse != null
+              ? submitCodeResponse.data
+              : errorInTestCase
+          }
         />
       </div>
     </div>
