@@ -4,6 +4,7 @@ import styles from "./ResultModal.module.css"; // Assume you have a separate CSS
 
 function ResultModal({ isOpen, onClose, result }) {
   // Return null if the modal is not open
+  console.log(result);
   if (!isOpen) return null;
 
   return (
@@ -14,7 +15,8 @@ function ResultModal({ isOpen, onClose, result }) {
         </button>
         <div className={styles.resultContent}>
           {/* Ensure the result text displays line breaks correctly */}
-          <pre className={styles.resultText}>{result}</pre>
+          <pre className={styles.resultText}>{result.result}</pre>
+          <pre className={styles.resultText}>{result.expectedResult}</pre>
         </div>
       </div>
     </div>

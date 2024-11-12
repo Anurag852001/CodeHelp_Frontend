@@ -83,7 +83,7 @@ function SolveProblemPage() {
         // Append an object to the testcase array
         testcase.push({
           variableNumber: mainCodeVariables.variables[i].variableNumber,
-          type: mainCodeVariables.variables[i].type,
+          dataType: mainCodeVariables.variables[i].type,
           value: splittedTestCaseText[i],
         });
       }
