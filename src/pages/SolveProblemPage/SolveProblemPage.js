@@ -22,7 +22,7 @@ function SolveProblemPage() {
   const [response, setResponse] = useState(null);
   const [language, setLanguage] = useState("java");
   const [code, setCode] = useState("");
-  const [submitCodeResponse, setSubmitCodeResponse] = useState(null);
+  const [submitCodeResponse, setSubmitCodeResponse] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [defaultCode, setDefaultCode] = useState("");
   const [qNo, setQNo] = useState(5);
@@ -52,8 +52,9 @@ function SolveProblemPage() {
   }
 
   function onRunCode() {
-    let testcase = []; // Initialize as an empty array
+    let testcase = [];
     let errorFound = false;
+
     setErrorInTestCase(null);
     setSubmitCodeResponse(null);
 
@@ -61,15 +62,15 @@ function SolveProblemPage() {
       .split("\n")
       .filter((line) => line.trim() !== "");
 
-    console.log(splittedTestCaseText.length);
-
-    if (splittedTestCaseText.length != mainCodeVariables.variables.length) {
+    // Check if the number of lines matches expected variables
+    if (splittedTestCaseText.length !== mainCodeVariables.variables.length) {
       setErrorInTestCase("Invalid testcase, check the number of inputs");
       errorFound = true;
       setIsModalOpen(true);
       return;
     }
 
+    // Check each test case line for compliance
     for (let i = 0; i < mainCodeVariables.variables.length; i++) {
       const testCaseComplianceError = testCaseComplianceChecker(
         mainCodeVariables.variables[i].type,
@@ -78,9 +79,9 @@ function SolveProblemPage() {
 
       if (testCaseComplianceError.length > 0) {
         setErrorInTestCase(testCaseComplianceError);
-        errorFound = true; // Fix: set the boolean value
+        errorFound = true;
+        break; // Stop further checks if there’s an error
       } else {
-        // Append an object to the testcase array
         testcase.push({
           variableNumber: mainCodeVariables.variables[i].variableNumber,
           dataType: mainCodeVariables.variables[i].type,
@@ -89,20 +90,25 @@ function SolveProblemPage() {
       }
     }
 
-    if (errorFound === true) {
+    if (errorFound) {
       setIsModalOpen(true);
       return;
     }
 
-    console.log(testcase); // Will now show an array of objects
-
-    submitCodeApi(language, code, false, testcase, qNo) // Pass the array instead of a string
-      .then((data) => setSubmitCodeResponse(data))
+    console.log(testcase);
+    // Call API and handle response or errors
+    submitCodeApi(language, code, false, testcase, qNo)
+      .then((data) => {
+        setSubmitCodeResponse(data);
+        setIsModalOpen(true);
+      })
       .catch((err) => {
-        console.log("Error while calling compile code API: " + err);
+        console.error("Error while calling compile code API:", err);
+        setErrorInTestCase(
+          "Error while calling compile code API: " + err.message
+        );
+        setIsModalOpen(true); // Open modal to show the error
       });
-
-    setIsModalOpen(true);
   }
 
   useEffect(() => {
