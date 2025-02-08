@@ -11,11 +11,13 @@ import WelcomePage from "../WelocmePage/WelcomePage";
 import ProblemSet from "../ProblemSetPage/ProblemSet";
 import styles from "./MainPage.module.css"; // Import the CSS module
 import ChatPage from "../ChatPage/ChatPage";
+import ReportPage from "../ReportPage/reportPage";
 
 function MainPage() {
   const items = [
     { label: "Problems", link: "/" },
     { label: "Welcome", link: "/welcome" },
+    { label: "Reports", link: "/report" },
   ];
 
   const location = useLocation();
@@ -35,6 +37,7 @@ function MainPage() {
             <Route path="/solve/:index" element={<SolveProblemPage />} />
             <Route path="/" element={<ProblemSet />} />
             <Route path="/chat" element={<ChatPage />} />
+            <Route path ="/report" element={<ReportPage />} />
           </Routes>
         </div>
       </div>

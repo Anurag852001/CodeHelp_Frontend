@@ -25,7 +25,7 @@ function SolveProblemPage() {
   const [submitCodeResponse, setSubmitCodeResponse] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [defaultCode, setDefaultCode] = useState("");
-  const [qNo, setQNo] = useState(5);
+  const [qNo, setQNo] = useState(1);
   const [loading, setLoading] = useState(true);
   let { index } = useParams();
   const navigate = useNavigate();
@@ -113,7 +113,7 @@ function SolveProblemPage() {
 
   useEffect(() => {
     if (isNaN(index)) {
-      index = 5;
+      index = 1;
     }
     setQNo(parseInt(index, 10));
     setLoading(true); // Start loading
@@ -146,7 +146,7 @@ function SolveProblemPage() {
 
   useEffect(() => {
     if (isNaN(index)) {
-      index = 5;
+      index = 1;
     }
     fetchDefaultCodeApi(parseInt(index, 10))
       .then((data) => {

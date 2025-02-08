@@ -1,6 +1,7 @@
 import { CompilerTypeEnums } from "../enums/CompilerTypeEnums";
 
 const codeHelpAiBackend = "http://localhost:8080";
+const codeHelpReportingBackend = "http://localhost:9000";
 export async function fetchWelcomeApi() {
   try {
     const headers = new Headers({
@@ -32,6 +33,32 @@ export async function fetchQuestionApi(qNo) {
 
     const params = new URLSearchParams({ qNo: qNo });
     const response = await fetch(`/get/question?${params.toString()}`, {
+      method: "GET",
+      headers: headers,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(
+      "Something went wrong while fetching questio from question API: ",
+      err
+    );
+  }
+}
+
+
+export async function fetchReports() {
+  try {
+    const headers = new Headers({
+      "Access-Control-Allow-Origin": "*",
+    });
+
+
+    const response = await fetch(codeHelpReportingBackend +`/codehelp/questions_solved/anurag/Easy`, {
       method: "GET",
       headers: headers,
     });
