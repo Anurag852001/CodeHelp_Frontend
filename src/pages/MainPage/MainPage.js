@@ -24,7 +24,8 @@ function MainPage() {
   const shouldShowNavBar = !(
     location.pathname.startsWith("/solve") ||
     location.pathname.startsWith("/welcome") ||
-    location.pathname.startsWith("/chat")
+    location.pathname.startsWith("/chat") ||
+    location.pathname.startsWith("/report")
   );
 
   return (
