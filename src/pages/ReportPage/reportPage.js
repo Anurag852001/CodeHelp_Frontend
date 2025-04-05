@@ -2,10 +2,14 @@ import { useState, useEffect } from "react";
 import { fetchReports } from "../../apiUtils/apiCalls";
 import Chart from "../Chart/Chart";
 import styles from "./ReportPage.module.css";
+import { Padding } from "@mui/icons-material";
 
 function ReportPage() {
   const [difficulties, setDifficulties] = useState(["Easy", "Medium", "Hard"]);
-
+  const [recentProblemsSolved,setRecentProblemsSolved] = useState([{"heading":"twoSum","difficulty":"Easy","accuracy":"100%"},
+    {"heading":"twoSum","difficulty":"Easy","accuracy":"100%"},{"heading":"twoSum","difficulty":"Easy","accuracy":"100%"},
+    {"heading":"twoSum","difficulty":"Easy","accuracy":"100%"},{"heading":"twoSum","difficulty":"Easy","accuracy":"100%"}
+  ])
   const [reportData, setReportData] = useState({
     success: "true",
     data: {
@@ -23,6 +27,12 @@ function ReportPage() {
       ]
     }
   });
+
+  const [accuracyData,setAccuracyDate] = useState([
+    { value: 78, name: 'Easy' },
+    { value: 55, name: 'Medium' },
+    { value: 90, name: 'Hard' },
+  ]);
 
   const [data, setData] = useState([]);
 
@@ -48,7 +58,7 @@ function ReportPage() {
     return dateWiseReport;
   }
 
-  const option = {
+  const problemsSolvedChartOption = {
     tooltip: {
       trigger: "axis",
       position: function (pt) {
@@ -107,10 +117,62 @@ function ReportPage() {
     ]
   };
 
+
+
+  const accuracyChartOption = {
+    title: {
+      text: "Accuracy Chart",
+      left: "center",
+      top: '2%',
+      bottom: 30 // 👈 Adds space below title before legend
+    },
+    tooltip: {
+      trigger: 'item'
+    },
+    legend: {
+      top: '12%',       // 👈 Below the title
+      left: 'center',
+      bottom: 30        // 👈 Adds space below legend before chart
+    },
+    series: [
+      {
+        name: 'Accuracy',
+        type: 'pie',
+        radius: ['80%', '60%'], // Big juicy doughnut
+        center: ['50%', '60%'], // 👈 Pushes chart down without shrinking it
+        avoidLabelOverlap: true,
+        itemStyle: {
+          borderRadius: 10,
+          borderColor: '#fff',
+          borderWidth: 2,
+        },
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: 20,
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+        data: accuracyData
+      }
+    ]
+  };
+  
+  
+
   return (
+
     <div className={styles.mainContainer}>
       <div className={styles.header}>Anurag</div>
-      <div className={styles.chart}>
+      <div className={styles.charts}>
+      <div className={styles.problemsSolvedChart}>
         {difficulties.map((difficulty) => (
           <button
             key={difficulty}
@@ -120,7 +182,20 @@ function ReportPage() {
             {difficulty}
           </button>
         ))}
-        <Chart option={option} />
+        <Chart option={ problemsSolvedChartOption} />
+      </div>
+      <div className={styles.accuracyChart}>
+        <Chart option={accuracyChartOption} >This is chart 2</Chart>
+      </div>
+      </div>
+      <div className={styles.recentProblemsSolved}>
+        {recentProblemsSolved.map(problem=>{
+         return <div className={styles.recentProblemSolvedListItem}> 
+            <div className={styles.recentProblemSolvedListItemContent}>{problem.heading}</div>
+            <div className={styles.recentProblemSolvedListItemContent}>{problem.difficulty}</div>
+            <div className={styles.recentProblemSolvedListItemContent}>{problem.accuracy}</div>
+          </div>
+        })}
       </div>
     </div>
   );
