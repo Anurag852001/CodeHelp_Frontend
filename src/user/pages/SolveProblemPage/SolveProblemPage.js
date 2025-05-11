@@ -25,7 +25,7 @@ function SolveProblemPage() {
   const [submitCodeResponse, setSubmitCodeResponse] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [defaultCode, setDefaultCode] = useState("");
-  const [qNo, setQNo] = useState(1);
+  const [qNo, setQNo] = useState(5);
   const [loading, setLoading] = useState(true);
   let { index } = useParams();
   const navigate = useNavigate();
@@ -140,9 +140,10 @@ const startResize = (e) => {
     if (isNaN(index)) {
       index = 1;
     }
+    console.log("index", index);
     setQNo(parseInt(index, 10));
     setLoading(true); // Start loading
-    fetchQuestionApi(qNo)
+    fetchQuestionApi(index)
       .then((data) => setResponse(data.data))
       .catch((err) => {
         console.log("Error occurred while fetching question");
