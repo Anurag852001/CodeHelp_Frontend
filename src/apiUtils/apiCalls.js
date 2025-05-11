@@ -142,6 +142,43 @@ export async function submitCodeApi(
   }
 }
 
+export async function compileCodeApi(
+  compilerType,
+  code,
+  runOnAll,
+  testCase,
+  qid
+) {
+  try {
+    const headers = new Headers({
+      "Content-Type": "application/json", // Add this header
+    });
+
+    const body = JSON.stringify({
+      compilerType: CompilerTypeEnums.fromValue(compilerType),
+      qid: qid,
+      code: code,
+      runOnAll: runOnAll,
+      testCase: testCase,
+    });
+
+    const response = await fetch(`/compile/code`, {
+      method: "POST",
+      headers: headers,
+      body: body,
+    });
+
+    if (!response.ok) {
+      throw new Error("Something went wrong while compiling the code");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Error in compile code API: " + err);
+  }
+}
+
 export async function fetchGenericListApi(page, count, listingEnum) {
   try {
     const headers = new Headers({

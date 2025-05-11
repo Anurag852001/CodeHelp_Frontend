@@ -1,6 +1,7 @@
 import styles from "./SolveProblem.module.css";
 import { useEffect, useRef, useState } from "react";
 import {
+  compileCodeApi,
   fetchDefaultCodeApi,
   fetchQuestionApi,
   getMainCodeVariables,
@@ -97,7 +98,7 @@ function onChangeHandler(event) {
     }
     console.log(testcase);
     // Call API and handle response or errors
-    submitCodeApi(language, code, false, testcase, qNo)
+    compileCodeApi(language, code, false, testcase, qNo)
       .then((data) => {
         setSubmitCodeResponse(data);
         setIsModalOpen(true);
