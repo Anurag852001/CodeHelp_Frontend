@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./ChatPage.module.css";
 import { useEffect } from "react";
-import { chatApi } from "../../apiUtils/apiCalls";
+import { chatApi } from "../../../apiUtils/apiCalls";
 
 function ChatPage() {
   const [response, setResponse] = useState("");

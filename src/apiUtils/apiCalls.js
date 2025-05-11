@@ -125,7 +125,7 @@ export async function submitCodeApi(
       testCase: testCase,
     });
 
-    const response = await fetch(`/compile/code`, {
+    const response = await fetch(`/submit/code`, {
       method: "POST",
       headers: headers,
       body: body,
