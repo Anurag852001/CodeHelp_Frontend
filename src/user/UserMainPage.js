@@ -5,13 +5,13 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import NavigationBar from "../components/NavigationBar/";
 import SolveProblemPage from "../user/pages/SolveProblemPage/SolveProblemPage";
 import WelcomePage from "../user/pages/WelocmePage/WelcomePage";
 import ProblemSet from "../user/pages/ProblemSetPage/ProblemSet";
 import styles from "../user/MainPage.module.css";
 import ChatPage from "../user/pages/ChatPage/ChatPage";
 import ReportPage from "../user/pages/ReportPage/ReportPage"
+import NavigationBar from "../components/NavigationBar/NavigationBar";
 
 function UserMainPage() {
   const items = [
