@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import UserMainPage from "../src/user/UserMainPage"
+import AdminMainPage from './admin/AdminMainPage';
 
 
 function App() {
@@ -33,7 +34,7 @@ useEffect(() => {
 }, []);
   return (
     <Router>
-      <UserMainPage />
+      <AdminMainPage />
     </Router>
   );
 }
