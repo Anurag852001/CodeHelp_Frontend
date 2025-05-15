@@ -1,8 +1,11 @@
 import CodingBackground from "../../resources/CodingBacdrop.svg";
+import style from "../WelcomeBackground/WelcomeBackground.module.css";
+
 
 function WelcomeBackGround({ children }) {
   return (
     <div
+    className={style.background} 
       style={{
         position: "relative",
         width: "100vw",
@@ -10,20 +13,10 @@ function WelcomeBackGround({ children }) {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        overflow: "hidden",
-        backgroundColor: "black",
+        overflow: "hidden"
       }}
     >
-      <img
-        src={CodingBackground}
-        alt="Coding Background"
-        style={{
-          height: "60vh",
-          width: "60vw",
-          objectFit: "contain",
-          zIndex: 0,
-        }}
-      />
+     
 
     <div
         style={{

@@ -1,10 +1,12 @@
 import { useEffect, useRef } from 'react';
-import styles from './StaticNavBar.module.css';
+import defaultNavStyles from './StaticNavBar.module.css';
 
-const StaticNavBar = ({ items, onLinkClick,setShowNavBar,selectedItem }) => {
+const StaticNavBar = ({ items, onLinkClick,setShowNavBar,selectedItem,dynamicNavStyles }) => {
+    console.log("DynamicNavStyles",dynamicNavStyles);
+    const styles = dynamicNavStyles == null || dynamicNavStyles ==undefined? defaultNavStyles : dynamicNavStyles;
 
     return (
-        <nav className={styles.navbar} >
+    <nav className={styles.navbar} >
             {items.map((item, index) => (
                 <div
                     key={index}
