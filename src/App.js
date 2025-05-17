@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import UserMainPage from "../src/user/UserMainPage"
 import AdminMainPage from './admin/AdminMainPage';
+import LoginPage from './admin/pages/LoginPage/LoginPage';
 
 
 function App() {
@@ -34,8 +35,12 @@ useEffect(() => {
 }, []);
   return (
     <Router>
-      <AdminMainPage />
+    <Routes>
+       <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<AdminMainPage />} />
+    </Routes>
     </Router>
+    
   );
 }
 
