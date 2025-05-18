@@ -1,5 +1,139 @@
-.mainContainer{
+
+.mainContainer {    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.leftSection {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    height: 100%;
+    color: #e0e0e0;
+    background: linear-gradient(180deg, #1e3c3b, #0d2625);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
+}
+
+.rightSection {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    color: #f1f1f1;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: #12181f;
+    padding: 2rem;
+}
+
+.loginPortal {
+    width: 40%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     justify-content: center;
     align-items: center;
+    border-radius: 16px;
+    overflow: hidden; 
+    background: linear-gradient(145deg, #212427, #17191b);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.loginPortal:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Inputs and Buttons */
+.loginPortal input,
+.loginPortal button {
+    padding: 12px 18px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* Dark-styled inputs */
+.loginPortal input {
+    background-color: #2b333f;
+    color: #f1f1f1;
+    border: 1px solid #3e4b5a;
+}
+
+.loginPortal input::placeholder {
+    color: #a0a0a0;
+}
+
+/* Primary action button */
+.loginPortal button {
+    background-color: #17aaa2;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.loginPortal button:hover {
+    background-color: #128d89;
+}
+
+.inputSection{
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+}
+
+input{
+    width: 40vh; 
+}
+
+.adminWebsiteSwitch {
+  position: relative;
+  display: flex;
+  width: 200px;
+  background: #1b242f;
+  border-radius: 16px 16px 0 0;
+  cursor: pointer;
+  gap: 5px;
+  padding: 5px;
+}
+
+.adminWebsiteSwitch span {
+  flex: 1;
+  text-align: center;
+  padding: 8px 0;
+  position: relative;
+  z-index: 2;
+  color: #17aaa2;
+  border-radius: 5px;
+  transition: color 0.3s ease;
+}
+
+.adminWebsiteSwitch .active {
+  color: #1b242f;
+}
+
+.slider {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+  width: 50%;
+  background-color: #17aaa2;
+  border-radius: 5px;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+/* Shift slider right */
+.adminWebsiteSwitch.websiteActive .slider {
+  transform: translateX(100%);
 }
