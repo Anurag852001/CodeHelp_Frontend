@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Logo from "../../../resources/Logo.svg";
 import { Google } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-import { Facebook } from '@mui/icons-material';
+import { Facebook,Twitter,Instagram } from '@mui/icons-material';
 function LoginPage(){
     const [isAdmin,setIsAdmin] = useState(false);
 
@@ -35,16 +35,16 @@ function LoginPage(){
             </div>
           <div className={styles.footerSection}> 
             <IconButton aria-label="Login with Google" className={styles.footerSpan}>
-                <Google />
+                <Google className={styles.icon} />
             </IconButton>
             <IconButton aria-label="Login with Facebook" className={styles.footerSpan}>
-                <Facebook />
+                <Facebook className={styles.icon} />
             </IconButton>
              <IconButton aria-label="Login with Google" className={styles.footerSpan}>
-                <Google />
+                <Twitter className={styles.icon} />
             </IconButton>
             <IconButton aria-label="Login with Facebook" className={styles.footerSpan}>
-                <Facebook />
+                <Instagram className={styles.icon} />
             </IconButton>
         </div>
             </div>

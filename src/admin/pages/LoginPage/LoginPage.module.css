@@ -56,7 +56,7 @@
     padding: 12px 18px;
     margin: 10px;
     border: none;
-    border-radius: 8px;
+    border-radius: 20px;
     font-size: 1rem;
     outline: none;
     transition: all 0.3s ease;
@@ -102,6 +102,7 @@ input{
   background: #1b242f;
   border-radius: 16px 16px 0 0;
   cursor: pointer;
+   border-radius: 25px;
   gap: 5px;
   padding: 5px;
 }
@@ -128,7 +129,7 @@ input{
   left: 0;
   width: 50%;
   background-color: #17aaa2;
-  border-radius: 5px;
+   border-radius: 20px;
   z-index: 1;
   transition: transform 0.3s ease;
 }
@@ -148,7 +149,10 @@ input{
     display: flex;
     flex-direction: row;
     gap: 10px;
+  
 }
 .footerSpan{
-
+    height: 2.6rem;
+    width: 2.6rem;
+       border-radius: 4rem;
 }
