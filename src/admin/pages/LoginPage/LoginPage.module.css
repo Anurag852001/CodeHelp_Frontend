@@ -14,7 +14,7 @@
     width: 20%;
     height: 100%;
     color: #e0e0e0;
-    background: linear-gradient(180deg, #1e3c3b, #0d2625);
+    background: linear-gradient(180deg, #1e3c3b, #212c21);
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
 }
 
@@ -136,4 +136,19 @@ input{
 /* Shift slider right */
 .adminWebsiteSwitch.websiteActive .slider {
   transform: translateX(100%);
+}
+
+.illustration {
+  max-width: 80%;
+  height: auto;
+  margin-bottom: 1.5rem;
+}
+
+.footerSection{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+.footerSpan{
+
 }

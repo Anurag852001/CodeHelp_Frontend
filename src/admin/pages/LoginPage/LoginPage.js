@@ -2,6 +2,10 @@ import { color } from 'echarts';
 import WelcomeBackGround from '../../../components/WelcomeBackground/WelcomeBackGround';
 import styles from './LoginPage.module.css';
 import { useState } from 'react';
+import Logo from "../../../resources/Logo.svg";
+import { Google } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
+import { Facebook } from '@mui/icons-material';
 function LoginPage(){
     const [isAdmin,setIsAdmin] = useState(false);
 
@@ -11,7 +15,11 @@ function LoginPage(){
 
     return <WelcomeBackGround  >
         <div className={styles.mainContainer}>
-        <div className={styles.leftSection}>Welcome to login</div>
+       <div className={styles.leftSection}>
+  <img src={Logo} alt="Welcome" className={styles.illustration} />
+  <div className={styles.welcomeText}>Code. Compile. Conquer.</div>
+</div>
+
         <div className={styles.rightSection}> 
             <div className={styles.loginPortal}> 
                 <div className={`${styles.adminWebsiteSwitch} ${!isAdmin ? styles.websiteActive : ''}`} onClick={onAdminSwitchToggleClick}> 
@@ -25,7 +33,20 @@ function LoginPage(){
                 <input type='Password' placeholder='Enter password'></input>
                 <button>Login</button>
             </div>
-
+          <div className={styles.footerSection}> 
+            <IconButton aria-label="Login with Google" className={styles.footerSpan}>
+                <Google />
+            </IconButton>
+            <IconButton aria-label="Login with Facebook" className={styles.footerSpan}>
+                <Facebook />
+            </IconButton>
+             <IconButton aria-label="Login with Google" className={styles.footerSpan}>
+                <Google />
+            </IconButton>
+            <IconButton aria-label="Login with Facebook" className={styles.footerSpan}>
+                <Facebook />
+            </IconButton>
+        </div>
             </div>
         </div>
         </div>
