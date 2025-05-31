@@ -3,6 +3,10 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import UserMainPage from "../src/user/UserMainPage"
 import AdminMainPage from './admin/AdminMainPage';
 import LoginPage from './admin/pages/LoginPage/LoginPage';
+import { use } from 'react';
+import { checkToken } from './apiUtils/apiCalls';
+import AdminPage from './admin/pages/AdminPage/AdminPage';
+import ProblemSet from './user/pages/ProblemSetPage/ProblemSet';
 
 
 function App() {
@@ -33,11 +37,27 @@ useEffect(() => {
     window.removeEventListener('unhandledrejection', handleUnhandledRejection);
   };
 }, []);
+
+useEffect(() => {
+  const token = localStorage.getItem('token');
+  if(token){
+   const responseFromCheckToken = checkToken(token);
+   if(responseFromCheckToken.success === false){
+     localStorage.removeItem('token');
+     window.location.href = '/';
+   }
+  }
+},[] );
+
+
+
   return (
     <Router>
     <Routes>
        <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<AdminMainPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/problems" element={<ProblemSet />} />
     </Routes>
     </Router>
     
