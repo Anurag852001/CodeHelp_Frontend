@@ -14,8 +14,8 @@
     width: 20%;
     height: 100%;
     color: #e0e0e0;
-    background: linear-gradient(180deg, #1e3c3b, #212c21);
-    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.4);
+    background: #292929;
+    border-right: solid 1px rgba(255, 255, 255, 0.285);
 }
 
 .rightSection {
@@ -26,7 +26,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #12181f;
+    background-color: #292929;
     padding: 2rem;
 }
 
@@ -40,8 +40,8 @@
     align-items: center;
     border-radius: 16px;
     overflow: hidden; 
-    background: linear-gradient(145deg, #212427, #17191b);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    background: #292929;
+    border: 1px solid rgba(255, 255, 255, 0.285);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -64,7 +64,7 @@
 
 /* Dark-styled inputs */
 .loginPortal input {
-    background-color: #2b333f;
+    background-color: #292929;
     color: #f1f1f1;
     border: 1px solid #3e4b5a;
 }
@@ -99,7 +99,7 @@ input{
   position: relative;
   display: flex;
   width: 200px;
-  background: #1b242f;
+  background: #01010165;
   border-radius: 16px 16px 0 0;
   cursor: pointer;
    border-radius: 25px;
@@ -119,7 +119,7 @@ input{
 }
 
 .adminWebsiteSwitch .active {
-  color: #1b242f;
+  color: #292929;
 }
 
 .slider {
