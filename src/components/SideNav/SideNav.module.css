@@ -53,7 +53,6 @@ body {
     letter-spacing: 0.5px;
     transition: all 0.3s ease;
     display: flex;
-    align-items: center;
 }
 
 .listItem:hover {
@@ -64,16 +63,43 @@ body {
 }
 
 .listIcon{
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding-right: 5px;
 }
 
-.arrow{
+.arrowOpen,
+.arrowClosed {
     width: 16px;
     height: 16px;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    border: 1px solid rgba(249, 245, 245, 0.3);
+}
+
+.arrowOpen {
     margin-left: auto;
-    transition: transform 0.3s ease;
+     transform: rotate(180deg);
+}
+
+.arrowClosed {
+    margin-left: 1rem;
+    
+}
+
+/* Hover effects */
+.arrowOpen:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: rotate(180deg);
+}
+
+.arrowClosed:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .itemNameOpen {

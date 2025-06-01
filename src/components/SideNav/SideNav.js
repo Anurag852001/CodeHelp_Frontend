@@ -15,7 +15,7 @@ function SideNav({items,onItemClick,customStyles}){
     }
     return (<div className={navOpen ? styles.mainContainer:styles.mainContainerClosed}>
         <ul className={styles.list}>
-            <img src={navOpen ? LeftArrow:RightArrow} className={styles.arrow} onClick={onArrowToggleHandler}></img>
+            <img src={RightArrow} className={navOpen?styles.arrowOpen:styles.arrowClosed} onClick={onArrowToggleHandler}></img>
             {items.map((item,index)=>{
                 return <li key = {index} onClick={onItemClick} className={styles.listItem}><img src={item.icon} className={styles.listIcon}>
                     </img> <div className={navOpen?styles.itemNameOpen:styles.itemNameClosed}> {item.name} </div></li>
