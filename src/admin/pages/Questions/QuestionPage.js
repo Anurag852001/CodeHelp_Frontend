@@ -8,6 +8,13 @@ import FilterIcon from "./../../../resources/FilterIcon.png";
 
 function QuestionsPage(){
 
+    let menuItems = [
+        "Pause",
+        "Delete",
+        "Resume",
+        "Edit"
+    ]
+
     let items =[
         {id: 1, questionHeading: "Two Sum", difficulty: "Easy", createdOn: "2023-10-01"},
         {id: 2, questionHeading: "Add Two Numbers", difficulty: "Medium", createdOn: "2023-10-01"},
@@ -28,6 +35,9 @@ function QuestionsPage(){
         <img src={FilterIcon} className={styles.filterIcon}></img>
         <SearchBar></SearchBar>
          <img src={PlusIcon} className={styles.plusIcon}></img>
+         <div className={styles.menu}> {menuItems.map((item,index) => {
+             return <div key={index} className={styles.menuItem}>{item}</div>
+         })}</div>
          </div>
          <div>
             <ListViewer items ={items} headers={headers}></ListViewer>
