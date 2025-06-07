@@ -7,6 +7,7 @@ import { use } from 'react';
 import { checkToken } from './apiUtils/apiCalls';
 import AdminPage from './admin/pages/AdminPage/AdminPage';
 import ProblemSet from './user/pages/ProblemSetPage/ProblemSet';
+import SolveProblemPage from './user/pages/SolveProblemPage/SolveProblemPage';
 
 
 function App() {
@@ -58,6 +59,7 @@ useEffect(() => {
         <Route path="/" element={<AdminMainPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/problems" element={<ProblemSet />} />
+        <Route path="/solve/:index" element={<SolveProblemPage />} />
     </Routes>
     </Router>
     

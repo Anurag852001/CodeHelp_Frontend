@@ -42,6 +42,7 @@ function SolveProblemPage() {
   const leftSectionRef = useRef(null) // Ref to the left section
   // Extract the index from state
 
+  console.log("index", index);
 function onChangeHandler(event) {
     setCode(event);
   }
