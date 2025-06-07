@@ -8,6 +8,7 @@ import { checkToken } from './apiUtils/apiCalls';
 import AdminPage from './admin/pages/AdminPage/AdminPage';
 import ProblemSet from './user/pages/ProblemSetPage/ProblemSet';
 import SolveProblemPage from './user/pages/SolveProblemPage/SolveProblemPage';
+import QuestionEditPage from './admin/pages/QuestionEditPage/QuestionEditPage';
 
 
 function App() {
@@ -60,6 +61,7 @@ useEffect(() => {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/problems" element={<ProblemSet />} />
         <Route path="/solve/:index" element={<SolveProblemPage />} />
+         <Route path="/question/addOrUpdate" element={<QuestionEditPage />} />
     </Routes>
     </Router>
     

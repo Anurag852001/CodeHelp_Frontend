@@ -1,6 +1,6 @@
 import styles from './ListViewer.module.css';
 
-function ListViewer({ items, headers }) {
+function ListViewer({ items, headers,onCheckBoxCheckedHandler}) {
   return (
     <div className={styles.listViewerContainer}>
       <div className={`${styles.row} ${styles.headerRow}`}>
@@ -14,11 +14,11 @@ function ListViewer({ items, headers }) {
       {items.map((item, rowIndex) => (
         
         <div key={rowIndex} className={styles.rowContainer}>
-          <input type="checkbox" className={styles.checkbox} />
+          <input type="checkbox" className={styles.checkbox} onClick={onCheckBoxCheckedHandler} />
           <div className={styles.row}>
         
           {headers.map((header, cellIndex) => (
-            <div key={`${rowIndex}-${cellIndex}`} className={styles.cell}>
+            <div key={`${rowIndex}-${cellIndex}`} className={styles.cell} >
               {item[header.key]}
             </div>
           ))}

@@ -12,8 +12,7 @@
   color: white;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  
+  gap: 1rem;  
 }
 
 .rowContainer {
@@ -77,15 +76,17 @@
   display: grid;
   margin-left:2rem ;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  max-height: 10vh;
+  max-height: 4vh;
   color: rgba(255, 255, 255, 0.893);
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   background:linear-gradient(90deg, rgba(1, 1, 1, 0.314) 0%, rgba(42, 42, 44, 0.367) 100%);
   border: 1px solid rgba(255, 255, 255, 0.177);
   box-shadow: 0px 0px 1px rgb(255, 255, 255);
   border-radius: 10px;
-
-  backdrop-filter: blur(2px);
+  position: sticky;
+  top:0;
+  backdrop-filter: blur(5px);
+  z-index: 10;
 }
 
 /* Thin separator line between each item row */
