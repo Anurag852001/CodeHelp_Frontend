@@ -29,8 +29,13 @@ function QuestionsPage(){
         }
     }
 
+    const callUnmountToQuestionPage = ()=>{
+        console.log("Unmounting Question Page");
+        setMountedPage(null);
+    }
+
     const onPlusClickHandler = ()=>{
-            setMountedPage(<QuestionEditPage />)
+            setMountedPage(<QuestionEditPage unmountAllHandler ={callUnmountToQuestionPage} />)
     }
     let items =[
         {id: 1, questionHeading: "Two Sum", difficulty: "Easy", createdOn: "2023-10-01"},
