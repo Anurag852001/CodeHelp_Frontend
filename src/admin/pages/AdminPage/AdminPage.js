@@ -11,6 +11,7 @@ import styles from "./AdminPage.module.css"; // Import the CSS module
 
 function AdminPage() {
   const [isLoading, setIsLoading] = useState(true);
+  const [navOpen,setNavOpen] = useState(false);
   const navigate = useNavigate();
 
   const items = [{name:"Questions",icon:QuestionIcon},{name:"TestCases",icon:TestCaseIcon},{name:"Contests",icon:ContestIcon} ];
@@ -28,10 +29,10 @@ function AdminPage() {
   return (
     isLoading ? <div>Loading...</div>:
     <div className={styles.mainContainer}>
-    <div>
-     <SideNav items = {items}></SideNav>
+    <div className={styles.sideNavContainer}>
+     <SideNav items = {items} navOpen ={navOpen} setNavOpen={setNavOpen}></SideNav>
     </div>
-    <div className={styles.contentContainer}>
+    <div className={ !navOpen ? styles.contentContainerClosed:styles.contentContainer}>
     <QuestionsPage></QuestionsPage>
     </div>
     </div>

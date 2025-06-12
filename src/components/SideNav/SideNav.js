@@ -1,10 +1,9 @@
 import defaultStyles from './SideNav.module.css';
-import LeftArrow from '../../resources/LeftArrow.png';
 import RightArrow from '../../resources/RightArrow.png';
 import { useState } from 'react';
 
-function SideNav({items,onItemClick,customStyles}){
-  const [navOpen, setNavOpen] = useState(false);
+function SideNav({items,onItemClick,customStyles,navOpen,setNavOpen}) {
+  
    let styles = customStyles;
     if(customStyles === undefined){
         styles = defaultStyles;

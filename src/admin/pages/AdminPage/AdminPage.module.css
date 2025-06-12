@@ -1,11 +1,43 @@
 .mainContainer{
     display: flex;
     flex-direction: row;
+ width: 100vw;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 .contentContainer{
     display: flex;
-    width: 100vw;
+    flex: 1;
+    /* width: 30px; */
+    min-width: 0;
+    overflow-x: auto;
     flex-direction: column;
     align-items: center;
-    padding: 1.2vh;
+    padding: 10re;
+    z-index: 1;
+    height: 100vh;
+    width: 10vw;
+    translate: 7%;
+    transition: all 0.2s ease;
+}
+
+.contentContainerClosed{
+       display: flex;
+    flex: 1;
+    /* width: 30px; */
+    min-width: 0;
+    overflow-x: auto;
+    flex-direction: column;
+    align-items: center;
+    padding: 10re;
+    z-index: 1;
+    height: 100vh;
+    width: 10vw;
+    translate: 3%;
+     transition: all 0.2s ease;
+}
+
+.sideNavContainer{
+    top: 0;
+    z-index: 10;
+    position: fixed;
 }
