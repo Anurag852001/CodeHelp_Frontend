@@ -1,8 +1,5 @@
 .inputContainer {
-  display: flex;
-  flex-direction: column;
-  width: 60vw;
-  margin: 16px 0;
+  margin: 0 0 16px;
 }
 
 .heading {
@@ -13,7 +10,6 @@
 }
 
 .inputText {
-  padding: 10px 12px;
   background-color: transparent;
   font-size: 1rem;
   color: #f2efef;
@@ -21,8 +17,8 @@
   border: 0.5px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  height: 50vh;
-  width: 100vh;
+  height: 20vh;
+  width: 30vw;
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
 }

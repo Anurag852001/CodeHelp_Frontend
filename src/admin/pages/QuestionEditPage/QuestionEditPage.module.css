@@ -1,14 +1,12 @@
 .mainContainer{
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .headerContainer{
     display: flex;
     align-items: center;
     width: 100vw;
-
 }
 
 .leftArrow{
@@ -29,14 +27,32 @@
 }
 
 .questionForm {
-    width: 90vw;
+    display: flex;
+    width: 35vw;
     height: 80vh;
     display: flex;
     flex-direction: column;
+    margin-top: 1rem;
+    padding: 0.2rem;
    
 }
-.questionHeadingInput{
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+
+.contentContainer{
+    display: flex;
+    justify-content: center;
+   
+    flex-direction: row;
+    padding: 1rem;
+}
+
+.monacoEditor{
+  
+    box-shadow: 0 0 0 0.1rem rgba(248, 245, 245, 0.466);
+    border-radius: 0.5rem;
+    padding: 0.2rem;
+}
+
+.editorHeading{
+    margin-bottom: 0.7rem;
+    color: rgb(250, 249, 247);
 }

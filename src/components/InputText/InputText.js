@@ -6,7 +6,7 @@ function InputText({customStyles,heading, onChange,placeholder}) {
     return (
         <div className={styles.inputContainer}>
             <div className={styles.heading}>{heading}</div>
-            <input type="text" placeholder={placeholder} className ={styles.inputText}  onChange={onChange}/>
+            <textarea type="text" placeholder={placeholder} className ={styles.inputText}  onChange={onChange}/>
         </div>
     );
 }

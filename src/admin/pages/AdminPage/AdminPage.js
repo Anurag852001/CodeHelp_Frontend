@@ -32,7 +32,7 @@ function AdminPage() {
     <div className={styles.sideNavContainer}>
      <SideNav items = {items} navOpen ={navOpen} setNavOpen={setNavOpen}></SideNav>
     </div>
-    <div className={ !navOpen ? styles.contentContainerClosed:styles.contentContainer}>
+    <div className={styles.contentContainer}>
     <QuestionsPage></QuestionsPage>
     </div>
     </div>
