@@ -5,6 +5,7 @@ import questionInputStyles from './inputStyles/QuestionHeading.module.css'
 import questionInputStyles2 from './inputStyles/QuestionHeading2.module.css'
 import { Editor } from '@monaco-editor/react';
 import { AutoComplete } from '../../../components/AutoComplete/AutoComplete';
+import PlusInput from '../../../components/PlusInput/PlusInput';
 
 
 function QuestionEditPage({ unmountAllHandler,questionHeading }) {
@@ -17,7 +18,8 @@ function QuestionEditPage({ unmountAllHandler,questionHeading }) {
        <div className={styles.questionForm}>
         <InputText customStyles={questionInputStyles} heading="Question Heading" placeholder="Enter here"></InputText>
         <InputText customStyles={questionInputStyles} heading="Description" placeholder="Enter here"></InputText>
-        <InputText customStyles={questionInputStyles} heading="Constraints" placeholder="Enter here"></InputText>
+        <PlusInput customStyles={questionInputStyles} heading="Constraints" placeholder="Enter here"></PlusInput>
+        <PlusInput customStyles={questionInputStyles} heading="Examples" placeholder="Enter here"></PlusInput>
         <InputText customStyles={questionInputStyles2} heading="Function Name" placeholder="Enter here"></InputText>
        </div>
        <div className={styles.editorContainer}>
