@@ -37,12 +37,13 @@
 
 .inputWrapper {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 0.5rem;
 }
 
 .inputBox {
   flex: 1;
+  max-width: 15rem;
   padding: 0.4rem 0.5rem;
   font-size: 0.75rem;
   color: #fff;
@@ -56,16 +57,34 @@
 .inputBox:focus {
   border-color: #888;
 }
+.inputContainer {
+  position: relative;
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
 
 .removeButton {
-  margin-left: 0.5rem;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: transparent;
+  border: none;
   color: #aaa;
+  font-size: 0.875rem;
   cursor: pointer;
-  font-size: 1rem;
   user-select: none;
   transition: color 0.2s;
 }
 
 .removeButton:hover {
   color: #ff6b6b;
+}
+
+.subHeading {
+  font-size: 0.75rem;
+  color: #ccc;
+  margin-bottom: 0.25rem;
 }

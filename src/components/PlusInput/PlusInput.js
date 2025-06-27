@@ -1,16 +1,24 @@
 import { useState } from 'react';
 import styles from './PlusInput.module.css';
 
-function PlusInput({ heading }) {
+function PlusInput({ heading, subHeadingArray }) {
   const [inputs, setInputs] = useState([]);
 
   const handleAddClick = () => {
-    setInputs([...inputs, '']);
+    // Initialize a new input group with empty strings
+    const newInputGroup = subHeadingArray.map(() => '');
+    setInputs([...inputs, newInputGroup]);
   };
 
-  const handleInputChange = (index, value) => {
-    const updatedInputs = [...inputs];
-    updatedInputs[index] = value;
+  const handleInputChange = (groupIndex, fieldIndex, value) => {
+    const updatedInputs = inputs.map((group, i) => {
+      if (i === groupIndex) {
+        const updatedGroup = [...group];
+        updatedGroup[fieldIndex] = value;
+        return updatedGroup;
+      }
+      return group;
+    });
     setInputs(updatedInputs);
   };
 
@@ -26,16 +34,28 @@ function PlusInput({ heading }) {
         Add
       </div>
 
-      {inputs.map((inputValue, index) => (
-        <div className={styles.inputWrapper} key={index}>
-          <textarea
-            className={styles.inputBox}
-            type="text"
-            value={inputValue}
-            onChange={(e) => handleInputChange(index, e.target.value)}
-            placeholder={`Input ${index + 1}`}
-          />
-          <span className={styles.removeButton} onClick={() => handleRemove(index)}>✕</span>
+      {inputs.map((group, groupIndex) => (
+        <div className={styles.inputContainer} key={groupIndex}>
+           <div
+            className={styles.removeButton}
+            onClick={() => handleRemove(groupIndex)}
+          >
+            ✕
+          </div>
+          {group.map((value, fieldIndex) => (
+            <div key={fieldIndex} className={styles.inputWrapper}>
+             
+              <textarea
+                className={styles.inputBox}
+                
+                onChange={(e) =>
+                  handleInputChange(groupIndex, fieldIndex, e.target.value)
+                }
+                placeholder={`Enter ${subHeadingArray[fieldIndex]}`}
+              />
+            </div>
+          ))}
+         
         </div>
       ))}
     </div>
