@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchGenericListApi } from "../../apiUtils/apiCalls";
+import { fetchGenericListApi } from "../../../apiUtils/apiCalls";
 import styles from "./ProblemSet.module.css"; // Import the CSS module
 import { useNavigate } from "react-router-dom";
 

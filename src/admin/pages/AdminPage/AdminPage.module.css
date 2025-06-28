@@ -1,0 +1,16 @@
+.mainContainer{
+    display: flex;
+    flex-direction: row;
+ width: 100vw;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.contentContainer{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+
+    transition: all 0.2s ease;
+}
+

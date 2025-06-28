@@ -76,6 +76,67 @@ export async function fetchReports() {
   }
 }
 
+export async function login(loginId,password,otpEnabled,loginType) {
+  try {
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    });
+    const body = JSON.stringify({
+      login_id:loginId,
+      password:password,
+      otp_enabled_login:otpEnabled,
+      login_type:loginType
+      });
+
+    const response = await fetch(codeHelpReportingBackend +`/codehelp/login`, {
+      method: "POST",
+      headers: headers,
+      body: body,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(
+      "Something went wrong while fetching questio from question API: ",
+      err
+    );
+  }
+}
+
+export async function checkToken(token) {
+  try {
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    });
+    const body = JSON.stringify({
+      token: token,
+      });
+
+    const response = await fetch(codeHelpReportingBackend +`/codehelp/check/token`, {
+      method: "POST",
+      headers: headers,
+      body: body,
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error(
+      "Something went wrong while fetching questio from question API: ",
+      err
+    );
+  }
+}
+
 export async function fetchDefaultCodeApi(qNo) {
   try {
     const headers = new Headers({
@@ -106,6 +167,43 @@ export async function fetchDefaultCodeApi(qNo) {
 }
 
 export async function submitCodeApi(
+  compilerType,
+  code,
+  runOnAll,
+  testCase,
+  qid
+) {
+  try {
+    const headers = new Headers({
+      "Content-Type": "application/json", // Add this header
+    });
+
+    const body = JSON.stringify({
+      compilerType: CompilerTypeEnums.fromValue(compilerType),
+      qid: qid,
+      code: code,
+      runOnAll: runOnAll,
+      testCase: testCase,
+    });
+
+    const response = await fetch(`/submit/code`, {
+      method: "POST",
+      headers: headers,
+      body: body,
+    });
+
+    if (!response.ok) {
+      throw new Error("Something went wrong while compiling the code");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Error in compile code API: " + err);
+  }
+}
+
+export async function compileCodeApi(
   compilerType,
   code,
   runOnAll,

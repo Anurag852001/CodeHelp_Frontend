@@ -1,0 +1,90 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 300px;
+  padding: 1rem;
+
+  border-radius: 8px;
+}
+
+.heading {
+  font-size: 0.875rem;
+  color: #f2eeee;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.addButton {
+  display: inline-flex;
+  font-size: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  height: 1.8rem;
+  width: 3.5rem;
+  color: rgb(194, 178, 178);
+  margin-bottom: 1rem;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background-color: #2b2b2b;
+  transition: background-color 0.3s;
+}
+
+.addButton:hover {
+  background-color: #3a3a3a;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+}
+
+.inputBox {
+  flex: 1;
+  max-width: 15rem;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.75rem;
+  color: #fff;
+  background-color: #2f2f2f;
+  border: 1px solid #444;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.inputBox:focus {
+  border-color: #888;
+}
+.inputContainer {
+  position: relative;
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.removeButton {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 0.875rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.removeButton:hover {
+  color: #ff6b6b;
+}
+
+.subHeading {
+  font-size: 0.75rem;
+  color: #ccc;
+  margin-bottom: 0.25rem;
+}

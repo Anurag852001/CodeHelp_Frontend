@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchReports } from "../../apiUtils/apiCalls";
+import { fetchReports } from "../../../apiUtils/apiCalls";
 import Chart from "../Chart/Chart";
 import styles from "./ReportPage.module.css";
 import { Padding } from "@mui/icons-material";
@@ -130,16 +130,16 @@ function ReportPage() {
       trigger: 'item'
     },
     legend: {
-      top: '12%',       // 👈 Below the title
+      top: '12%',      
       left: 'center',
-      bottom: 30        // 👈 Adds space below legend before chart
+      bottom: 30       
     },
     series: [
       {
         name: 'Accuracy',
         type: 'pie',
-        radius: ['80%', '60%'], // Big juicy doughnut
-        center: ['50%', '60%'], // 👈 Pushes chart down without shrinking it
+        radius: ['80%', '60%'], 
+        center: ['50%', '60%'], 
         avoidLabelOverlap: true,
         itemStyle: {
           borderRadius: 10,

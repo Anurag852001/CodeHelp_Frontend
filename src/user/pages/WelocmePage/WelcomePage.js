@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchWelcomeApi } from "../../apiUtils/apiCalls";
+import { fetchWelcomeApi } from "../../../apiUtils/apiCalls";
 import { useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
-import Logo from "../../components/Logo/Logo";
+import Logo from "../../../components/Logo/Logo";
 function WelcomePage() {
   const [response, setResponse] = useState(null);
   const navigate = useNavigate();

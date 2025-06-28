@@ -1,0 +1,32 @@
+.inputContainer {
+  margin: 0 0 16px;
+}
+
+.heading {
+  font-size: 0.875rem; /* small text */
+  color: #f2eeee; /* subtle grey */
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.inputText {
+  background-color: transparent;
+  font-size: 1rem;
+  color: #f2efef;
+  border: 0.5px solid #ccc;
+  border: 0.5px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  height: 6vh;
+  width: 30vw;
+  max-width: 30vw;
+  display: flex;
+  text-align: left;
+  align-items: center;
+  outline: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.inputText:focus {
+  box-shadow: 0 0 0 1px rgba(246, 246, 246, 0.2);
+}

@@ -1,20 +1,21 @@
 import styles from "./SolveProblem.module.css";
-import globalStyles from "../../GlobalStyles.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
+  compileCodeApi,
   fetchDefaultCodeApi,
   fetchQuestionApi,
   getMainCodeVariables,
   submitCodeApi,
-} from "../../apiUtils/apiCalls";
+} from "../../../apiUtils/apiCalls";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownAltIcon from "@mui/icons-material/ThumbDownAlt";
 import Editor from "@monaco-editor/react";
-import { AutoComplete } from "../../components/AutoComplete/AutoComplete";
-import ResultModal from "../../components/ResultModal/ResultModal";
+import { AutoComplete } from "../../../components/AutoComplete/AutoComplete";
+import ResultModal from "../../../components/ResultModal/ResultModal";
 import { useNavigate, useParams } from "react-router-dom";
-import starImage from "../../resources/star.svg";
-import testCaseComplianceChecker from "../../utils/testCaseComplainceChecker";
+import starImage from "../../../resources/star.svg";
+import testCaseComplianceChecker from "../../../utils/testCaseComplainceChecker";
+import StaticNavBar from "../../../components/StaticNavBar/StaticNavBar";
 
 const allLanguages = ["c++", "java", "python"];
 
@@ -25,7 +26,7 @@ function SolveProblemPage() {
   const [submitCodeResponse, setSubmitCodeResponse] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [defaultCode, setDefaultCode] = useState("");
-  const [qNo, setQNo] = useState(1);
+  const [qNo, setQNo] = useState(5);
   const [loading, setLoading] = useState(true);
   let { index } = useParams();
   const navigate = useNavigate();
@@ -36,9 +37,13 @@ function SolveProblemPage() {
   const [testCaseText, setTestCaseText] = useState(null);
   const [mainCodeVariables, setMainCodeVariables] = useState(null);
   const [errorInTestCase, setErrorInTestCase] = useState("");
+  const [selectedItem,setSelectedItem] = useState("Description");
+   const [leftSectionWidth, setLeftSectionWidth] = useState(700); // Default width for left section
+  const leftSectionRef = useRef(null) // Ref to the left section
   // Extract the index from state
 
-  function onChangeHandler(event) {
+  console.log("index", index);
+function onChangeHandler(event) {
     setCode(event);
   }
 
@@ -81,23 +86,20 @@ function SolveProblemPage() {
         setErrorInTestCase(testCaseComplianceError);
         errorFound = true;
         break; // Stop further checks if there’s an error
-      } else {
-        testcase.push({
-          variableNumber: mainCodeVariables.variables[i].variableNumber,
-          dataType: mainCodeVariables.variables[i].type,
-          value: splittedTestCaseText[i],
-        });
-      }
+      } 
     }
+    testcase.push({
+      qid:qNo,
+      testCase:splittedTestCaseText,
+    })
 
     if (errorFound) {
       setIsModalOpen(true);
       return;
     }
-
     console.log(testcase);
     // Call API and handle response or errors
-    submitCodeApi(language, code, false, testcase, qNo)
+    compileCodeApi(language, code, false, testcase, qNo)
       .then((data) => {
         setSubmitCodeResponse(data);
         setIsModalOpen(true);
@@ -111,13 +113,39 @@ function SolveProblemPage() {
       });
   }
 
+const startResize = (e) => {
+  console.log("startResize");
+    let isResizing = true;
+    const initialMouseX = e.clientX;
+    const initialWidth = leftSectionWidth;
+
+    const onMouseMove = (moveEvent) => {
+      if (isResizing) {
+        const newWidth = initialWidth + (moveEvent.clientX - initialMouseX);
+        leftSectionRef = newWidth;
+      }
+    };
+
+    const onMouseUp = () => {
+      console.log("onMouseUp");
+      isResizing = false;
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp);
+  };
+
+
   useEffect(() => {
     if (isNaN(index)) {
       index = 1;
     }
+    console.log("index", index);
     setQNo(parseInt(index, 10));
     setLoading(true); // Start loading
-    fetchQuestionApi(qNo)
+    fetchQuestionApi(index)
       .then((data) => setResponse(data.data))
       .catch((err) => {
         console.log("Error occurred while fetching question");
@@ -140,7 +168,7 @@ function SolveProblemPage() {
         setMainCodeVariables(data);
       })
       .catch((err) => {
-        console.err("Error while geting main code variables");
+  console.err("Error while geting main code variables");
       });
   }, []);
 
@@ -174,10 +202,17 @@ function SolveProblemPage() {
   if (loading) {
     return <div>Loading...</div>; // Simple loading indicator
   }
+  
 
+  const onNavClickHandler = (item) => {
+    setSelectedItem(item);
+  }
   return (
     <div className={styles.container}>
-      <div className={styles.leftSection}>
+      <div className={styles.leftSection} style={{width:leftSectionWidth}} ref={leftSectionRef} >
+  
+        
+      <StaticNavBar items ={["Description","Solutions","Submissions"]} selectedItem={selectedItem} onLinkClick={onNavClickHandler}>NavigationBar</StaticNavBar>
         <div className={styles.problemHeading}>
           {response != null ? response.questionBody.id : 1}
           {".  "}
@@ -242,8 +277,14 @@ function SolveProblemPage() {
             className={styles.starImage}
           ></img>
         </div>
+        
       </div>
+    
       <div className={styles.rightSection}>
+        <div
+        className={styles.stretcher}
+        onMouseDown={startResize}
+      ></div>
         <AutoComplete
           className={styles.autoCompleteStyle}
           defaultValue="java"
