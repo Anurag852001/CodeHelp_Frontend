@@ -5,43 +5,231 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7); /* Dark overlay background */
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000; /* Ensure it appears above other elements */
+  z-index: 1000;
+  backdrop-filter: blur(4px);
 }
 
 .modalContent {
-  background: #2a2a2a; /* Matches your theme */
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 600px;
-  width: 80%;
+  background: #2c2c2c;
+  border-radius: 12px;
+  max-width: 500px;
+  width: 90%;
   color: #e0e0e0;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5); /* Slight shadow for depth */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: #252525;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f8f8f8;
 }
 
 .closeButton {
-  background: #444;
-  color: #e0e0e0;
+  background: transparent;
+  color: #888;
   border: none;
-  padding: 8px 16px;
+  font-size: 1.2rem;
   cursor: pointer;
+  padding: 4px;
   border-radius: 4px;
-  float: right;
-  margin-bottom: 10px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
 }
 
 .closeButton:hover {
-  background: #555;
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
 }
 
 .resultContent {
-  white-space: pre-wrap; /* Ensures line breaks are preserved */
+  padding: 24px;
 }
 
-.resultText {
-  font-family: "Courier New", monospace; /* Monospace font for code-like appearance */
-  overflow-wrap: break-word; /* Prevents long strings from breaking the layout */
+/* Status Section */
+.statusSection {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.successStatus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #4caf50;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.failureStatus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #ff6b6b;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.successIcon {
+  font-size: 1.5rem !important;
+  color: #4caf50;
+}
+
+.failureIcon {
+  font-size: 1.5rem !important;
+  color: #ff6b6b;
+}
+
+.errorIcon {
+  font-size: 2rem !important;
+  color: #ff6b6b;
+  margin-bottom: 12px;
+}
+
+/* Results Grid */
+.resultsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.resultCard {
+  background: #3b3b3b;
+  padding: 16px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.resultLabel {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.resultValue {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #e0e0e0;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.resultPercentage {
+  font-size: 0.9rem;
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.timerIcon {
+  font-size: 1rem !important;
+  color: #3498db;
+}
+
+/* Expected Result Section */
+.expectedResultSection {
+  background: #3b3b3b;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  border-left: 4px solid #ff6b6b;
+}
+
+.expectedResultSection h4 {
+  margin: 0 0 12px 0;
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.expectedResult {
+  background: #2c2c2c;
+  padding: 12px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Error Content */
+.errorContent {
+  text-align: center;
+  padding: 24px;
+}
+
+.errorMessage {
+  color: #ff6b6b;
+  font-size: 1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.primaryButton {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.primaryButton:hover {
+  background: #2980b9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modalContent {
+    width: 95%;
+    margin: 20px;
+  }
+  
+  .resultsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .modalHeader {
+    padding: 16px 20px;
+  }
+  
+  .resultContent {
+    padding: 20px;
+  }
 }

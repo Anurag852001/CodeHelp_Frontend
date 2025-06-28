@@ -1,14 +1,12 @@
 /* Animation keyframes for sliding down */
 @keyframes slideDown {
   0% {
-    transform: translateY(
-      -30px
-    ); /* Start slightly above the initial position */
-    opacity: 0; /* Start invisible */
+    transform: translateY(-30px);
+    opacity: 0;
   }
   100% {
-    transform: translateY(0); /* End at the original position */
-    opacity: 1; /* Fully visible */
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
@@ -16,15 +14,16 @@
 .problemSetContainer {
   padding: 16px;
   max-width: 100%;
-  background-color: #252525;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  color: #dcdcdc;
+  background-color: #2c2c2c;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  color: #e0e0e0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   margin-bottom: 300px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Styling for each list item with animation */
@@ -33,40 +32,43 @@
   justify-content: space-between;
   padding: 10px 14px;
   margin: 6px 0;
-  background-color: #303030;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
   cursor: pointer;
   width: 1000px;
-  animation: slideDown 2s ease-out; /* Slowed down animation */
+  animation: slideDown 2s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Hover effect for list items */
 .problemItem:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
 }
 
 /* Question heading styling */
 .problemItemHeading {
-  font-size: 15px; /* Slightly smaller for a minimalist approach */
-  font-weight: 500; /* Lighter weight for cleaner text */
-  color: #ebebeb; /* Neutral light color for headings */
+  font-size: 15px;
+  font-weight: 500;
+  color: #f8f8f8;
 }
 
 /* Difficulty styling */
 .problemItemDifficulty {
-  font-size: 13px; /* Reduced size for subtler appearance */
-  font-weight: 400; /* Lighter weight */
-  color: #b0b0b0; /* Softer gray for a minimalist touch */
+  font-size: 13px;
+  font-weight: 400;
+  color: #e0e0e0;
 }
 
 .problemText {
   font-size: 100px;
   text-align: center;
-  transition: transform 10.5s ease, box-shadow 10.15s ease;
+  transition: all 0.2s ease;
   padding: auto;
   margin-bottom: 40px;
   animation: slideDown 2s ease-out;
+  color: #f8f8f8;
 }

@@ -2,6 +2,7 @@ import { CompilerTypeEnums } from "../enums/CompilerTypeEnums";
 
 const codeHelpAiBackend = "http://localhost:8080";
 const codeHelpReportingBackend = "http://localhost:9000";
+
 export async function fetchWelcomeApi() {
   try {
     const headers = new Headers({
@@ -20,8 +21,8 @@ export async function fetchWelcomeApi() {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error("Got some error while fetching from the welcome API:", err);
-    throw err;
+    console.error("Error fetching welcome API:", err);
+    throw new Error("Failed to fetch welcome data. Please try again.");
   }
 }
 
@@ -43,13 +44,10 @@ export async function fetchQuestionApi(qNo) {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error(
-      "Something went wrong while fetching questio from question API: ",
-      err
-    );
+    console.error("Error fetching question:", err);
+    throw new Error("Failed to fetch question data. Please try again.");
   }
 }
-
 
 export async function fetchReports() {
   try {
@@ -57,8 +55,7 @@ export async function fetchReports() {
       "Access-Control-Allow-Origin": "*",
     });
 
-
-    const response = await fetch(codeHelpReportingBackend +`/codehelp/questions_solved/anurag/Easy`, {
+    const response = await fetch(codeHelpReportingBackend + `/codehelp/questions_solved/anurag/Easy`, {
       method: "GET",
       headers: headers,
     });
@@ -69,27 +66,25 @@ export async function fetchReports() {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error(
-      "Something went wrong while fetching questio from question API: ",
-      err
-    );
+    console.error("Error fetching reports:", err);
+    throw new Error("Failed to fetch reports. Please try again.");
   }
 }
 
-export async function login(loginId,password,otpEnabled,loginType) {
+export async function login(loginId, password, otpEnabled, loginType) {
   try {
     const headers = new Headers({
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
     });
     const body = JSON.stringify({
-      login_id:loginId,
-      password:password,
-      otp_enabled_login:otpEnabled,
-      login_type:loginType
-      });
+      login_id: loginId,
+      password: password,
+      otp_enabled_login: otpEnabled,
+      login_type: loginType
+    });
 
-    const response = await fetch(codeHelpReportingBackend +`/codehelp/login`, {
+    const response = await fetch(codeHelpReportingBackend + `/codehelp/login`, {
       method: "POST",
       headers: headers,
       body: body,
@@ -101,10 +96,8 @@ export async function login(loginId,password,otpEnabled,loginType) {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error(
-      "Something went wrong while fetching questio from question API: ",
-      err
-    );
+    console.error("Error during login:", err);
+    throw new Error("Login failed. Please check your credentials and try again.");
   }
 }
 
@@ -116,9 +109,9 @@ export async function checkToken(token) {
     });
     const body = JSON.stringify({
       token: token,
-      });
+    });
 
-    const response = await fetch(codeHelpReportingBackend +`/codehelp/check/token`, {
+    const response = await fetch(codeHelpReportingBackend + `/codehelp/check/token`, {
       method: "POST",
       headers: headers,
       body: body,
@@ -130,10 +123,8 @@ export async function checkToken(token) {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error(
-      "Something went wrong while fetching questio from question API: ",
-      err
-    );
+    console.error("Error checking token:", err);
+    throw new Error("Token verification failed. Please log in again.");
   }
 }
 
@@ -159,10 +150,8 @@ export async function fetchDefaultCodeApi(qNo) {
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error(
-      "Something went wrong while fetching wrapper code API: ",
-      err
-    );
+    console.error("Error fetching default code:", err);
+    throw new Error("Failed to fetch default code. Please try again.");
   }
 }
 
@@ -175,7 +164,7 @@ export async function submitCodeApi(
 ) {
   try {
     const headers = new Headers({
-      "Content-Type": "application/json", // Add this header
+      "Content-Type": "application/json",
     });
 
     const body = JSON.stringify({
@@ -193,13 +182,14 @@ export async function submitCodeApi(
     });
 
     if (!response.ok) {
-      throw new Error("Something went wrong while compiling the code");
+      throw new Error("Failed to submit code. Please try again.");
     }
 
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error("Error in compile code API: " + err);
+    console.error("Error submitting code:", err);
+    throw new Error("Failed to submit code. Please check your connection and try again.");
   }
 }
 
@@ -212,7 +202,7 @@ export async function compileCodeApi(
 ) {
   try {
     const headers = new Headers({
-      "Content-Type": "application/json", // Add this header
+      "Content-Type": "application/json",
     });
 
     const body = JSON.stringify({
@@ -230,13 +220,14 @@ export async function compileCodeApi(
     });
 
     if (!response.ok) {
-      throw new Error("Something went wrong while compiling the code");
+      throw new Error("Failed to compile code. Please try again.");
     }
 
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error("Error in compile code API: " + err);
+    console.error("Error compiling code:", err);
+    throw new Error("Failed to compile code. Please check your syntax and try again.");
   }
 }
 
@@ -251,7 +242,8 @@ export async function fetchGenericListApi(page, count, listingEnum) {
       count: count,
       listingEnum: listingEnum,
     });
-    const response = await fetch(`/list/generic?${params.toString()}`, {
+
+    const response = await fetch(`/get/generic/list?${params.toString()}`, {
       method: "GET",
       headers: headers,
     });
@@ -259,26 +251,26 @@ export async function fetchGenericListApi(page, count, listingEnum) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error(
-      "Something went wrong while fetching wrapper code API: ",
-      err
-    );
+    console.error("Error fetching generic list:", err);
+    throw new Error("Failed to fetch data. Please try again.");
   }
 }
 
 export async function chatApi(question) {
   try {
     const headers = new Headers({
-      "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     });
 
     const body = JSON.stringify({
       question: question,
     });
+
     const response = await fetch(codeHelpAiBackend + `/chat`, {
       method: "POST",
       headers: headers,
@@ -288,24 +280,27 @@ export async function chatApi(question) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error("Something went wrong while calling chat api: ", err);
+    console.error("Error calling chat API:", err);
+    throw new Error("Failed to get AI response. Please try again.");
   }
 }
 
 export async function getMainCodeVariables(qid, language) {
   try {
     const headers = new Headers({
-      "Access-Control-Allow-Origin": "*",
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     });
 
     const body = JSON.stringify({
       qid: qid,
       language: language,
     });
+
     const response = await fetch("/get/mainCode/variables", {
       method: "POST",
       headers: headers,
@@ -315,9 +310,11 @@ export async function getMainCodeVariables(qid, language) {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+
     const data = await response.json();
     return data;
   } catch (err) {
-    console.error("Something went wrong while calling chat api: ", err);
+    console.error("Error fetching main code variables:", err);
+    throw new Error("Failed to fetch code variables. Please try again.");
   }
 }

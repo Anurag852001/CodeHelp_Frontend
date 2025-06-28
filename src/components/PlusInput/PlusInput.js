@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styles from './PlusInput.module.css';
 
-function PlusInput({ heading, subHeadingArray,inputs,setInputs}) {
+function PlusInput({ heading, subHeadingArray, inputs, setInputs, error }) {
   
 
   const handleAddClick = () => {
@@ -55,6 +55,9 @@ function PlusInput({ heading, subHeadingArray,inputs,setInputs}) {
          
         </div>
       ))}
+      {error && (
+        <div className={styles.errorMessage}>{error}</div>
+      )}
     </div>
   );
 }
