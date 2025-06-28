@@ -1,24 +1,21 @@
 import { useState } from 'react';
 import styles from './PlusInput.module.css';
 
-function PlusInput({ heading, subHeadingArray }) {
-  const [inputs, setInputs] = useState([]);
+function PlusInput({ heading, subHeadingArray,inputs,setInputs}) {
+  
 
   const handleAddClick = () => {
     // Initialize a new input group with empty strings
-    const newInputGroup = subHeadingArray.map(() => '');
-    setInputs([...inputs, newInputGroup]);
+      const newInputObject = subHeadingArray.reduce((acc, subHeading) => {
+      acc[subHeading] = '';
+      return acc;
+    }, {});
+    setInputs([...inputs, newInputObject]);
   };
 
-  const handleInputChange = (groupIndex, fieldIndex, value) => {
-    const updatedInputs = inputs.map((group, i) => {
-      if (i === groupIndex) {
-        const updatedGroup = [...group];
-        updatedGroup[fieldIndex] = value;
-        return updatedGroup;
-      }
-      return group;
-    });
+  const handleInputChange = (groupIndex, key, value) => {
+    const updatedInputs = inputs;
+    updatedInputs[groupIndex][key] = value;
     setInputs(updatedInputs);
   };
 
@@ -42,16 +39,16 @@ function PlusInput({ heading, subHeadingArray }) {
           >
             ✕
           </div>
-          {group.map((value, fieldIndex) => (
-            <div key={fieldIndex} className={styles.inputWrapper}>
+          {Object.entries(group).map(([key, value]) => (
+            <div key={key} className={styles.inputWrapper}>
              
               <textarea
                 className={styles.inputBox}
                 
                 onChange={(e) =>
-                  handleInputChange(groupIndex, fieldIndex, e.target.value)
+                  handleInputChange( groupIndex,key, e.target.value)
                 }
-                placeholder={`Enter ${subHeadingArray[fieldIndex]}`}
+                placeholder={`Enter ${key}`}
               />
             </div>
           ))}
