@@ -243,7 +243,7 @@ export async function fetchGenericListApi(page, count, listingEnum) {
       listingEnum: listingEnum,
     });
 
-    const response = await fetch(`/get/generic/list?${params.toString()}`, {
+    const response = await fetch(`/list/generic?${params.toString()}`, {
       method: "GET",
       headers: headers,
     });
