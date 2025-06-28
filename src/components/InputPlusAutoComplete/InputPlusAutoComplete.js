@@ -3,20 +3,19 @@ import { AutoComplete } from "../AutoComplete/AutoComplete";
 import styles from "./InputPlusAutoComplete.module.css";
 
 
-function InputPlusAutoComplete({ defaultAutoCompleteValue, values, inputKey,autoCompleteKey, customStyles,inputPlaceHolder }) {
-    const[inputs,setInputs] = useState([]);
+function InputPlusAutoComplete({ defaultAutoCompleteValue, values, inputKey,autoCompleteKey, customStyles,inputPlaceHolder,inputs,setInputs }) {
+    
 
     const onAddClickHandler = () => {
       const newInputObject = {
         [inputKey]:'',
-        [autoCompleteKey]:[defaultAutoCompleteValue]
+        [autoCompleteKey]:defaultAutoCompleteValue
       }
       console.log(inputs);
         setInputs([...inputs,newInputObject]);
     }
     
     const onRemoveClickHandler = (index) => {
-        console.log("Remove clicked at index:", index);
         const newInputs = inputs.filter((_, i) => i !== index);
         setInputs(newInputs);
     }
@@ -25,14 +24,13 @@ function InputPlusAutoComplete({ defaultAutoCompleteValue, values, inputKey,auto
       let updatedInputs = inputs;
       updatedInputs[index][inputKey] = value;
       setInputs(updatedInputs);
-      console.log("updated inputs",inputs)
     }
 
     const autoCompleteValueChangeHandler =(value,index) =>{
     let updatedInputs = inputs;
       updatedInputs[index][autoCompleteKey] = value;
       setInputs(updatedInputs);
-      console.log("Updated inputs ",inputs)
+    
     }
 
   return (

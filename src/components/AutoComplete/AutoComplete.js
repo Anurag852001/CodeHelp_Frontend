@@ -8,7 +8,7 @@ export function AutoComplete({ values,defaultValue, onOptionChangeHandler, custo
   
   const onClickHandler = (selectedValue) => {
     setCurrentVal(selectedValue);
-    console.log("Clicked")
+    console.log(selectedValue)
     onOptionChangeHandler(selectedValue);
     setShowOptions(false);
   };
