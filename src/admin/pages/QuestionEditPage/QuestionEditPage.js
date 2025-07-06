@@ -10,6 +10,7 @@ import PlusInput from '../../../components/PlusInput/PlusInput';
 import customAutoCompleteStyles from "./inputStyles/AutoCompleteCustom.module.css"
 import InputPlusAutoComplete from '../../../components/InputPlusAutoComplete/InputPlusAutoComplete';
 import { useState, useEffect } from 'react';
+import { saveQuestion } from '../../../apiUtils/apiCalls';
 
 function QuestionEditPage({ unmountAllHandler, questionHeading }) {
       const [constraints, setConstraints] = useState([]); 
@@ -109,9 +110,7 @@ function QuestionEditPage({ unmountAllHandler, questionHeading }) {
          // TODO: Replace with actual API call
          console.log("Question Object to be submitted:", questionObject);
          
-         // Simulate API call
-         await new Promise(resolve => setTimeout(resolve, 1000));
-         
+         saveQuestion(questionObject);
          // Success handling
          alert("Question saved successfully!");
          if (unmountAllHandler) {
@@ -203,8 +202,8 @@ function QuestionEditPage({ unmountAllHandler, questionHeading }) {
        
        <Editor
           defaultLanguage="java"
-          width={500}
-          height={390}
+          width={"43vw"}
+          height={"90vh"}
           defaultValue={code}
           onChange={(code) => { 
              setCode(code);

@@ -318,3 +318,25 @@ export async function getMainCodeVariables(qid, language) {
     throw new Error("Failed to fetch code variables. Please try again.");
   }
 }
+
+
+export async function saveQuestion(questionSaveBody){
+  try{
+  const headers = new Headers({
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    });
+
+     const body = JSON.stringify(questionSaveBody);
+
+
+     const response = await fetch("/save/question", {
+      method: "POST",
+      headers: headers,
+      body: body,
+    });
+  } catch(err){
+    console.log("Error while saving questions, body", questionSaveBody);
+    throw new Error("Failed to save question")
+  }
+}
