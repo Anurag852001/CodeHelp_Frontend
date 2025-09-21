@@ -1,0 +1,203 @@
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #333;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  text-align: center;
+  padding: 20px;
+}
+
+.errorContainer h3 {
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+.errorContainer button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.errorContainer button:hover {
+  background-color: #2980b9;
+}
+
+.topBarContainer{
+    display: flex;
+    flex-direction: row;
+    padding: 0.5rem;
+    justify-content: space-between;
+    align-items: center; 
+}
+.logoName {
+  padding: 10px;
+  font-family: "Lavishly Yours", cursive;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 3.5vh;
+  background: linear-gradient(135deg, #ffffff, #d5a985); /* adjust as you like */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.portal {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40vw;
+  height: 50vh;
+}
+
+.mainPortal{
+  height: 90%;
+  width: 90%;
+  display: flex;
+  gap: 1vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 0.1vh solid #bef40d;
+  box-shadow: 0 4px 10px rgba(92, 174, 4, 0.15);
+  border-radius: 2vh;
+  background-color: rgb(32, 38, 42);
+}
+
+
+.heading {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 6vh;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.loginButton{
+  width: 20vw;
+  height: 5vh;
+  border-radius: 2vh;
+  background-color: rgb(32, 38, 42);
+  border: none;
+  color: rgb(248, 244, 244);
+  background-color: #0fb8d6;
+  font-size: 2vh;
+  transition: background-color 0.3s ease;
+}
+.loginButton:hover {
+  background-color: #0994ac;
+  cursor: pointer;
+}
+
+.credentialsContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.subHeading {
+  font-size: 2.2vh;
+  font-weight: 300;
+  color: #cccccc;
+  text-align: center;
+  margin-top: 1vh;
+  max-width: 50vw;
+}
+
+.welcomeText {
+ display: flex;
+ position: relative;
+ top: 15vh;
+ align-items: center;
+justify-content: center;
+ flex-direction: column;
+ align-items: center;
+}
+.navBarContainer{
+display: flex;
+flex-direction: row;
+gap: 10vh;
+}
+.welcomeBackground{
+  display: flex;
+  flex-direction: column;
+}
+
+.searchBar {
+  display: flex;
+  padding: 0.2vh;
+  align-items: center;
+  height: 5.2vh;
+  justify-content: center;
+}
+
+.inputBox {
+  width: 45vw;
+  padding: 1vh;
+  border: 1px solid #b1b2ae;
+  background-color: #3a3434;
+  color: #fffdfd;
+  font-size: 1.6vh;
+  border-top-left-radius: 0.6rem;
+  border-bottom-left-radius: 0.6rem;
+  border-right: none; /* remove duplicate border with button */
+  outline: none;
+}
+
+.searchButton {
+  padding: 1vh 2vh;
+  background-color: #5a5959;
+  color: white;
+  border: 1px solid #b1b2ae;
+  border-left: none; /* no double border between input and button */
+  border-top-right-radius: 0.6rem;
+  border-bottom-right-radius: 0.6rem;
+  cursor: pointer;
+  font-size: 1.6vh;
+}
+
+
+.searchButton:hover {
+  background-color: #6d6d6d;
+}
+
+.adminSwitchSpan{
+  background-color: black;
+  color: white;
+}

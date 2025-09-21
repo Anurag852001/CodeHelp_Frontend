@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import styles from "./AutoComplete.module.css";
+import defaultStyles from "./AutoComplete.module.css";
 
-export function AutoComplete({ defaultValue, values, onLanguageChange }) {
-  const [value, setValue] = useState(defaultValue);
+export function AutoComplete({ values,defaultValue, onOptionChangeHandler, customStyles }) {
+  const[currentVal,setCurrentVal] = useState(defaultValue);
   const [showOptions, setShowOptions] = useState(false);
-
+  const styles = customStyles || defaultStyles;
+  
   const onClickHandler = (selectedValue) => {
-    setValue(selectedValue);
-    onLanguageChange(selectedValue);
+    setCurrentVal(selectedValue);
+    console.log(selectedValue)
+    onOptionChangeHandler(selectedValue);
     setShowOptions(false);
   };
 
-  const onInputClickHandler = () => {
-    setShowOptions(!showOptions);
+const onInputClickHandler = () => {
+  setShowOptions(!showOptions);
   };
 
   return (
@@ -20,7 +22,7 @@ export function AutoComplete({ defaultValue, values, onLanguageChange }) {
       <input
         className={styles.inputContainer}
         type="text"
-        value={value}
+        value={currentVal}
         onClick={onInputClickHandler}
         readOnly
       />

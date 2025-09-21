@@ -1,0 +1,157 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    height: auto;
+    overflow-y: auto;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.header {
+  font-size: 22px;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  width: auto;
+  min-height: auto;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+  color: #f8f8f8;
+}
+
+.problemsSolvedChart {
+  min-height: 360px;
+  width: 100%;
+  background: #2c2c2c;
+  padding: 20px;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+.charts {
+  width: 100%;
+  display: flex;
+  gap: 1%;
+}
+
+.accuracyChart {
+  display: inline-block;
+  min-height: 360px;
+  width: 80%;
+  max-width: 700px;
+  background: #2c2c2c;
+  padding: 20px;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+/* Difficulty Buttons */
+button {
+  background: rgba(255, 252, 252, 0.051);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 8px 16px;
+  margin: 5px;
+  border-radius: 0.5rem;
+  font-size: 14px;
+  font-weight: normal;
+  color: #e0e0e0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+.recentProblemsSolved {
+  width: 100%;
+  background-color: #2c2c2c;
+  padding: 20px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  font-family: Arial, sans-serif;
+  margin-top: 40px;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom scrollbar styling */
+.recentProblemsSolved::-webkit-scrollbar {
+  width: 8px;
+}
+
+.recentProblemsSolved::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.recentProblemsSolved::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+
+.recentProblemsSolved::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.recentProblemsSolved::before {
+  content: 'Recent Problems Solved';
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #f8f8f8;
+  margin-bottom: 15px;
+}
+
+.recentProblemSolvedListItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 12px 16px;
+  border-radius: 0.5rem;
+  margin-bottom: 10px;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.recentProblemSolvedListItem:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+  transform: scale(1.02);
+}
+
+.recentProblemSolvedListItemContent {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  color: #e0e0e0;
+}
+
+/* Optional: Make heading column a little bolder */
+.recentProblemSolvedListItemContent:first-child {
+  font-weight: 600;
+  color: #f8f8f8;
+}
+
