@@ -317,11 +317,12 @@ function SolveProblemPage() {
             </div>
           </div>
 
-          <Editor
+          {<Editor
             defaultLanguage="java"
             width="100%"
             height={heightOfEditor}
-            defaultValue={code}
+            top ={"-20px"}
+            defaultValue={response?.defaultCode || "// Write your code here"}
             onChange={onChangeHandler}
             theme="vs-dark"
             options={{
@@ -332,7 +333,7 @@ function SolveProblemPage() {
               scrollBeyondLastLine: false,
               automaticLayout: true,
             }}
-          />
+          />}
 
           {showTestCaseSubmitter && (
             <div className={styles.testCaseContainer}>

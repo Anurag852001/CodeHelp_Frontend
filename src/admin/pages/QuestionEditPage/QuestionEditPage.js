@@ -97,11 +97,11 @@ function QuestionEditPage({ unmountAllHandler, questionHeading }) {
                likes: 0,
                dislikes: 0,
                difficulty: "EASY",
+               functionName: functionName,
                description: description,
             },
             questionConstraints: constraints,
             questionExamples: examples,
-            functionName: functionName,
             variables: variables,
             correctCode: code,
             language: language

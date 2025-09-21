@@ -13,6 +13,7 @@ function AdminMainPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   let [items, setItems] = useState([
+    { label: "Solve", component: LoginPage, navigation: "/problems" },
     { label: "About Us", component: LoginPage, navigation: "/aboutUs" },
     { label: "Contact Us", component: LoginPage, navigation: "/contactUs" }
   ]);
