@@ -26,78 +26,90 @@ function SolveProblemPage() {
   const [submitCodeResponse, setSubmitCodeResponse] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [defaultCode, setDefaultCode] = useState("");
-  const [qNo, setQNo] = useState(5);
+  const [qNo, setQNo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [isRunning, setIsRunning] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   let { index } = useParams();
   const navigate = useNavigate();
   const [showTestCaseSubmitter, setShowTestCaseSubmitter] = useState(false);
-  const [heightOfEditor, setHeightOfEditor] = useState("1000px");
+  const [heightOfEditor, setHeightOfEditor] = useState("calc(100vh - 120px)");
   const [heightOfTestCaseInput, setHeightOfTestCaseInput] = useState("10px");
   const [marginOfButtons, setMarginsOfButtons] = useState("10px");
-  const [testCaseText, setTestCaseText] = useState(null);
+  const [testCaseText, setTestCaseText] = useState("");
   const [mainCodeVariables, setMainCodeVariables] = useState(null);
   const [errorInTestCase, setErrorInTestCase] = useState("");
-  const [selectedItem,setSelectedItem] = useState("Description");
-   const [leftSectionWidth, setLeftSectionWidth] = useState(700); // Default width for left section
-  const leftSectionRef = useRef(null) // Ref to the left section
-  // Extract the index from state
+  const [selectedItem, setSelectedItem] = useState("Description");
+  const [leftSectionWidth, setLeftSectionWidth] = useState(700);
+  const leftSectionRef = useRef(null);
 
-  console.log("index", index);
-function onChangeHandler(event) {
+  function onChangeHandler(event) {
     setCode(event);
   }
 
   function onTestCaseTextAreaChangeHandler(event) {
-    console.log(event.target.value);
     setTestCaseText(event.target.value);
   }
 
   function onLanguageChangehandler(event) {
-    console.log(event);
+    setLanguage(event);
   }
 
   function onRunCode() {
+    if (!testCaseText.trim()) {
+      setErrorInTestCase("Please enter test case input");
+      setIsModalOpen(true);
+      return;
+    }
+
     let testcase = [];
     let errorFound = false;
 
-    setErrorInTestCase(null);
+    setErrorInTestCase("");
     setSubmitCodeResponse(null);
+    setIsRunning(true);
 
     const splittedTestCaseText = testCaseText
       .split("\n")
       .filter((line) => line.trim() !== "");
 
     // Check if the number of lines matches expected variables
-    if (splittedTestCaseText.length !== mainCodeVariables.variables.length) {
+    if (mainCodeVariables && splittedTestCaseText.length !== mainCodeVariables.variables.length) {
       setErrorInTestCase("Invalid testcase, check the number of inputs");
       errorFound = true;
       setIsModalOpen(true);
+      setIsRunning(false);
       return;
     }
 
     // Check each test case line for compliance
-    for (let i = 0; i < mainCodeVariables.variables.length; i++) {
-      const testCaseComplianceError = testCaseComplianceChecker(
-        mainCodeVariables.variables[i].type,
-        splittedTestCaseText[i]
-      );
+    if (mainCodeVariables) {
+      for (let i = 0; i < mainCodeVariables.variables.length; i++) {
+        const testCaseComplianceError = testCaseComplianceChecker(
+          mainCodeVariables.variables[i].type,
+          splittedTestCaseText[i]
+        );
 
-      if (testCaseComplianceError.length > 0) {
-        setErrorInTestCase(testCaseComplianceError);
-        errorFound = true;
-        break; // Stop further checks if there’s an error
-      } 
+        if (testCaseComplianceError.length > 0) {
+          setErrorInTestCase(testCaseComplianceError);
+          errorFound = true;
+          break;
+        }
+      }
     }
+
     testcase.push({
-      qid:qNo,
-      testCase:splittedTestCaseText,
-    })
+      qid: qNo,
+      testCase: splittedTestCaseText,
+    });
 
     if (errorFound) {
       setIsModalOpen(true);
+      setIsRunning(false);
       return;
     }
-    console.log(testcase);
+
     // Call API and handle response or errors
     compileCodeApi(language, code, false, testcase, qNo)
       .then((data) => {
@@ -105,16 +117,17 @@ function onChangeHandler(event) {
         setIsModalOpen(true);
       })
       .catch((err) => {
-        console.error("Error while calling compile code API:", err);
         setErrorInTestCase(
-          "Error while calling compile code API: " + err.message
+          "Error while compiling code: " + (err.message || "Unknown error")
         );
-        setIsModalOpen(true); // Open modal to show the error
+        setIsModalOpen(true);
+      })
+      .finally(() => {
+        setIsRunning(false);
       });
   }
 
-const startResize = (e) => {
-  console.log("startResize");
+  const startResize = (e) => {
     let isResizing = true;
     const initialMouseX = e.clientX;
     const initialWidth = leftSectionWidth;
@@ -122,12 +135,11 @@ const startResize = (e) => {
     const onMouseMove = (moveEvent) => {
       if (isResizing) {
         const newWidth = initialWidth + (moveEvent.clientX - initialMouseX);
-        leftSectionRef = newWidth;
+        setLeftSectionWidth(Math.max(300, Math.min(800, newWidth))); // Min 300px, Max 800px
       }
     };
 
     const onMouseUp = () => {
-      console.log("onMouseUp");
       isResizing = false;
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseup", onMouseUp);
@@ -137,20 +149,24 @@ const startResize = (e) => {
     document.addEventListener("mouseup", onMouseUp);
   };
 
-
   useEffect(() => {
-    if (isNaN(index)) {
-      index = 1;
-    }
-    console.log("index", index);
-    setQNo(parseInt(index, 10));
-    setLoading(true); // Start loading
-    fetchQuestionApi(index)
-      .then((data) => setResponse(data.data))
+    const questionIndex = isNaN(index) ? 1 : parseInt(index, 10);
+    setQNo(questionIndex);
+    setLoading(true);
+    setError(null);
+
+    fetchQuestionApi(questionIndex)
+      .then((data) => {
+        if (data && data.success && data.data) {
+          setResponse(data.data);
+        } else {
+          setError("Failed to load question data");
+        }
+      })
       .catch((err) => {
-        console.log("Error occurred while fetching question");
+        setError("Error occurred while fetching question");
       });
-  }, []);
+  }, [index]);
 
   function onAiSectionClickHandler() {
     navigate("/chat");
@@ -158,194 +174,222 @@ const startResize = (e) => {
 
   function toggleShowTestCaseSubmitter() {
     setShowTestCaseSubmitter(!showTestCaseSubmitter);
-    setHeightOfEditor(heightOfEditor === "1000px" ? "400px" : "1000px");
-    setMarginsOfButtons(marginOfButtons === "10px" ? "140px" : "10px");
+    if (!showTestCaseSubmitter) {
+      setHeightOfEditor("calc(100vh - 320px)");
+    } else {
+      setHeightOfEditor("calc(100vh - 120px)");
+    }
   }
 
   useEffect(() => {
-    getMainCodeVariables(qNo, language)
-      .then((data) => {
-        setMainCodeVariables(data);
-      })
-      .catch((err) => {
-  console.err("Error while geting main code variables");
-      });
-  }, []);
+    if (qNo && language) {
+      getMainCodeVariables(qNo, language)
+        .then((data) => {
+          if (data) {
+            setMainCodeVariables(data);
+          }
+        })
+        .catch((err) => {
+          setError("Error while getting code variables");
+        });
+    }
+  }, [qNo, language]);
 
   useEffect(() => {
-    if (isNaN(index)) {
-      index = 1;
-    }
-    fetchDefaultCodeApi(parseInt(index, 10))
+    const questionIndex = isNaN(index) ? 1 : parseInt(index, 10);
+    setLoading(true);
+
+    fetchDefaultCodeApi(questionIndex)
       .then((data) => {
-        setDefaultCode(data.data.defaultCode);
-        setCode(data.data.defaultCode); // Corrected to set the code
+        if (data && data.data && data.data.defaultCode) {
+          setDefaultCode(data.data.defaultCode);
+          setCode(data.data.defaultCode);
+        } else {
+          setCode("// Write your code here");
+        }
+      })
+      .catch((err) => {
+        setError("Error occurred while fetching default code");
+        setCode("// Write your code here");
       })
       .finally(() => {
         setLoading(false);
-      })
-      .catch((err) => {
-        console.log("Error occurred while fetching default code");
       });
   }, [index]);
 
   function onCodeSubmitHandler() {
     setSubmitCodeResponse(null);
-    submitCodeApi(language, code, true, null, qNo)
-      .then((data) => setSubmitCodeResponse(data))
-      .catch((err) => {
-        console.log("Error while calling compile code API: " + err);
-      });
-    setIsModalOpen(true);
-  }
+    setIsSubmitting(true);
 
-  if (loading) {
-    return <div>Loading...</div>; // Simple loading indicator
+    submitCodeApi(language, code, true, null, qNo)
+      .then((data) => {
+        setSubmitCodeResponse(data);
+        setIsModalOpen(true);
+      })
+      .catch((err) => {
+        setError("Error while submitting code: " + (err.message || "Unknown error"));
+        setIsModalOpen(true);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   }
-  
 
   const onNavClickHandler = (item) => {
-    setSelectedItem(item);
-  }
-  return (
-    <div className={styles.container}>
-      <div className={styles.leftSection} style={{width:leftSectionWidth}} ref={leftSectionRef} >
-  
-        
-      <StaticNavBar items ={["Description","Solutions","Submissions"]} selectedItem={selectedItem} onLinkClick={onNavClickHandler}>NavigationBar</StaticNavBar>
-        <div className={styles.problemHeading}>
-          {response != null ? response.questionBody.id : 1}
-          {".  "}
-          {response != null ? response.questionBody.questionHeading : "heading"}
-          <div className={styles.difficulty}>
-            {response && response.questionBody.difficulty}
-          </div>
-        </div>
+    navigate(item.link);
+  };
 
-        <div className={styles.feedBackSection}>
-          <div className={styles.likes}>
-            <ThumbUpIcon className={styles.thumb}></ThumbUpIcon>
-            {response != null ? response.questionBody.likes : 0}
-          </div>
-          <div className={styles.dislikes}>
-            <ThumbDownAltIcon className={styles.thumb}></ThumbDownAltIcon>
-            {response != null ? response.questionBody.dislikes : 0}
-          </div>
-        </div>
-        <div className={styles.description}>
-          <div className={styles.descriptionHeading}>Description</div>
-          {response != null ? response.questionBody.description : ""}
-        </div>
-        <div className={styles.examples}>
-          {response != null &&
-            response.questionExamples.map((example, index) => (
-              <div key={index} className={styles.example}>
-                <div className={styles.exampleHeading}>
-                  {example.exampleName}
-                </div>
-                <div className={styles.exampleInput}>
-                  Input:{example.exampleInput}{" "}
-                </div>
-                <div className={styles.exampleOutput}>
-                  Output:{example.exampleOutput}{" "}
-                </div>
-                <div className={styles.exampleExplanation}>
-                  Explanation:{example.explanation}{" "}
-                </div>
-              </div>
-            ))}
-        </div>
-        <div className={styles.constraints}>
-          <div className={styles.constraintHeading}>Constraints</div>
-          {response != null &&
-            response.questionConstraints.map((constraint, index) => (
-              <div key={index}>
-                <div className={styles.constraintDescription}>
-                  {constraint.constraintDescription}
-                </div>
-              </div>
-            ))}
-        </div>
-        <div className={styles.aiSection} onClick={onAiSectionClickHandler}>
-          <div className={styles.aiButton}>
-            Having Problem? Try our brand new AI features to understand the
-            problem
-          </div>
-          <img
-            src={starImage}
-            alt="star image"
-            className={styles.starImage}
-          ></img>
-        </div>
-        
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingSpinner}></div>
+        <p>Loading problem...</p>
       </div>
-    
-      <div className={styles.rightSection}>
-        <div
-        className={styles.stretcher}
-        onMouseDown={startResize}
-      ></div>
-        <AutoComplete
-          className={styles.autoCompleteStyle}
-          defaultValue="java"
-          onLanguageChange={onLanguageChangehandler}
-          values={allLanguages}
-        />
-        <Editor
-          className={styles.editor}
-          height={heightOfEditor}
-          onChange={onChangeHandler}
-          defaultLanguage="java"
-          defaultValue={defaultCode}
-          theme="vs-dark"
-        />
-        <div className={styles.testCaseSubmitterWrapper}>
-          {showTestCaseSubmitter && (
-            <div
-              className={styles.testCaseSubmitter}
-              style={{ height: heightOfTestCaseInput }}
-            >
-              <textarea
-                className={styles.testCaseInput}
-                onChange={onTestCaseTextAreaChangeHandler}
-              ></textarea>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.errorContainer}>
+        <h3>Error</h3>
+        <p>{error}</p>
+        <button onClick={() => window.location.reload()}>Retry</button>
+      </div>
+    );
+  }
+
+  return (
+    <div className={styles.mainContainer}>
+      <div className={styles.leftSection} ref={leftSectionRef} style={{ width: `${leftSectionWidth}px` }}>
+        <div className={styles.questionContainer}>
+          <div className={styles.questionHeader}>
+            <div className={styles.questionTitle}>
+              {response?.questionBody?.questionHeading || "Question"}
             </div>
-          )}
-          <div
-            className={styles.testCaseSubmitterAndTogglerButtons}
-            style={{ marginTop: marginOfButtons }}
-          >
-            <button
-              className={styles.toggleShowTestCaseSubmitter}
-              onClick={toggleShowTestCaseSubmitter}
-            >
-              ^
-            </button>
-            {showTestCaseSubmitter && (
-              <div className={styles.theTwoButtons}>
-                <button className={styles.submitButton} onClick={onRunCode}>
-                  Run{" "}
-                </button>
-                <button
-                  className={styles.submitButton}
-                  onClick={onCodeSubmitHandler}
-                >
-                  Submit{" "}
-                </button>
+            <div className={styles.questionDifficulty}>
+              {response?.questionBody?.difficulty || "Easy"}
+            </div>
+          </div>
+          <div className={styles.questionContent}>
+            <div className={styles.questionDescription}>
+              {response?.questionBody?.description || "No description available"}
+            </div>
+            {response?.questionConstraints && response.questionConstraints.length > 0 && (
+              <div className={styles.constraintsSection}>
+                <h4>Constraints:</h4>
+                <ul>
+                  {response.questionConstraints.map((constraint, index) => (
+                    <li key={index}>{constraint.constraintDescription}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {response?.questionExamples && response.questionExamples.length > 0 && (
+              <div className={styles.examplesSection}>
+                <h4>Examples:</h4>
+                {response.questionExamples.map((example, index) => (
+                  <div key={index} className={styles.example}>
+                    <h5>{example.exampleName}</h5>
+                    <p><strong>Input:</strong> {example.exampleInput}</p>
+                    <p><strong>Output:</strong> {example.exampleOutput}</p>
+                    {example.explanation && (
+                      <p><strong>Explanation:</strong> {example.explanation}</p>
+                    )}
+                  </div>
+                ))}
               </div>
             )}
           </div>
         </div>
+      </div>
+
+      <div className={styles.resizeHandle} onMouseDown={startResize}></div>
+
+      <div className={styles.rightSection}>
+        <div className={styles.editorContainer}>
+          <div className={styles.editorHeader}>
+            <div className={styles.languageSelector}>
+              <AutoComplete
+                values={allLanguages}
+                defaultValue={language}
+                onOptionChangeHandler={onLanguageChangehandler}
+              />
+            </div>
+          </div>
+
+          {<Editor
+            defaultLanguage="java"
+            width="100%"
+            height={heightOfEditor}
+            top ={"-20px"}
+            defaultValue={response?.defaultCode || "// Write your code here"}
+            onChange={onChangeHandler}
+            theme="vs-dark"
+            options={{
+              minimap: { enabled: false },
+              fontSize: 14,
+              lineNumbers: "on",
+              roundedSelection: false,
+              scrollBeyondLastLine: false,
+              automaticLayout: true,
+            }}
+          />}
+
+          {showTestCaseSubmitter && (
+            <div className={styles.testCaseContainer}>
+              <div className={styles.testCaseHeader}>
+                <h4>Test Case Input</h4>
+                <button 
+                  className={styles.closeTestCaseButton}
+                  onClick={toggleShowTestCaseSubmitter}
+                >
+                  ×
+                </button>
+              </div>
+              <textarea
+                className={styles.testCaseInput}
+                placeholder="Enter test case input (one value per line)"
+                value={testCaseText}
+                onChange={onTestCaseTextAreaChangeHandler}
+                style={{ height: heightOfTestCaseInput }}
+              />
+              <div className={styles.testCaseActions}>
+                <button
+                  className={`${styles.actionButton} ${isRunning ? styles.disabled : ''}`}
+                  onClick={!isRunning ? onRunCode : undefined}
+                  disabled={isRunning}
+                >
+                  {isRunning ? 'Running...' : 'Run Code'}
+                </button>
+                <button
+                  className={`${styles.actionButton} ${isSubmitting ? styles.disabled : ''}`}
+                  onClick={!isSubmitting ? onCodeSubmitHandler : undefined}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                </button>
+              </div>
+            </div>
+          )}
+
+          {!showTestCaseSubmitter && (
+            <div className={styles.testCaseToggle}>
+              <button onClick={toggleShowTestCaseSubmitter}>
+                Custom Run/Submit
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {isModalOpen && (
         <ResultModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          result={
-            submitCodeResponse != null
-              ? submitCodeResponse.data
-              : errorInTestCase
-          }
+          result={submitCodeResponse}
+          error={errorInTestCase}
         />
-      </div>
+      )}
     </div>
   );
 }

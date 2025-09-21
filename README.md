@@ -1,70 +1,165 @@
-# Getting Started with Create React App
+# CodeHelp Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern React-based coding platform that provides an interactive environment for practicing coding problems, with features like code compilation, AI assistance, and comprehensive reporting.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+### For Users
+- **Interactive Code Editor**: Monaco Editor with syntax highlighting for multiple languages (Java, C++, Python)
+- **Problem Solving**: Practice coding problems with real-time compilation and testing
+- **AI Chat Assistant**: Get help and explanations for coding problems
+- **Progress Tracking**: View detailed reports and analytics of your coding progress
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-### `npm start`
+### For Admins
+- **Question Management**: Create and edit coding problems with rich formatting
+- **Content Management**: Add constraints, examples, and test cases
+- **User Management**: Monitor user progress and system usage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Tech Stack
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Frontend**: React 18 with Hooks
+- **Code Editor**: Monaco Editor (VS Code's editor)
+- **Styling**: CSS Modules
+- **Charts**: ECharts for data visualization
+- **Icons**: Material-UI Icons
+- **Routing**: React Router DOM
+- **Build Tool**: Create React App
 
-### `npm test`
+## 📦 Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd CodeHelp_Frontend
+   ```
 
-### `npm run build`
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+4. **Open your browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🔧 Configuration
 
-### `npm run eject`
+### Environment Setup
+The application expects the following backend services to be running:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Main Backend**: `http://localhost:8000` (configured in package.json proxy)
+- **AI Backend**: `http://localhost:8080` (for chat functionality)
+- **Reporting Backend**: `http://localhost:9000` (for analytics)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Available Scripts
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- `npm start` - Runs the app in development mode
+- `npm test` - Launches the test runner
+- `npm run build` - Builds the app for production
+- `npm run eject` - Ejects from Create React App (one-way operation)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 📁 Project Structure
 
-## Learn More
+```
+src/
+├── admin/                 # Admin interface components
+│   ├── pages/            # Admin pages (login, question editing)
+│   └── AdminMainPage.js  # Main admin dashboard
+├── user/                 # User interface components
+│   ├── pages/            # User pages (problem solving, chat, reports)
+│   └── UserMainPage.js   # Main user dashboard
+├── components/           # Reusable UI components
+│   ├── AutoComplete/     # Dropdown component
+│   ├── InputText/        # Text input component
+│   ├── NavigationBar/    # Navigation component
+│   └── ResultModal/      # Modal for displaying results
+├── apiUtils/            # API integration layer
+├── enums/               # Application enums
+├── resources/           # Static assets (images, icons)
+└── utils/               # Utility functions
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🎯 Key Components
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Code Editor
+- Monaco Editor integration with syntax highlighting
+- Support for multiple programming languages
+- Real-time code compilation and testing
+- Customizable themes and settings
 
-### Code Splitting
+### Chat System
+- AI-powered coding assistant
+- Real-time messaging interface
+- Message history and timestamps
+- Loading states and error handling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Problem Management
+- Rich text editing for problem descriptions
+- Dynamic constraint and example management
+- Variable type management with autocomplete
+- Code template generation
 
-### Analyzing the Bundle Size
+## 🔒 Security Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- Token-based authentication
+- Secure API communication
+- Input validation and sanitization
+- Error boundary implementation
 
-### Making a Progressive Web App
+## 📱 Responsive Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+The application is fully responsive and optimized for:
+- Desktop computers (1920x1080 and above)
+- Tablets (768px and above)
+- Mobile devices (480px and above)
 
-### Advanced Configuration
+## 🐛 Error Handling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The application includes comprehensive error handling:
+- Network error recovery
+- User-friendly error messages
+- Loading states for better UX
+- Graceful degradation for offline scenarios
 
-### Deployment
+## 🚀 Performance Optimizations
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- Lazy loading of components
+- Optimized bundle splitting
+- Efficient state management
+- Minimal re-renders with React.memo
 
-### `npm run build` fails to minify
+## 🤝 Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+If you encounter any issues or have questions:
+1. Check the existing issues in the repository
+2. Create a new issue with detailed information
+3. Contact the development team
+
+## 🔄 Recent Updates
+
+- Improved error handling across all components
+- Enhanced user experience with loading states
+- Better responsive design for mobile devices
+- Comprehensive form validation
+- Modern chat interface with real-time features
+
+---
+
+**Built with ❤️ by the Anurag**

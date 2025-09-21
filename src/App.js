@@ -9,6 +9,8 @@ import AdminPage from './admin/pages/AdminPage/AdminPage';
 import ProblemSet from './user/pages/ProblemSetPage/ProblemSet';
 import SolveProblemPage from './user/pages/SolveProblemPage/SolveProblemPage';
 import QuestionEditPage from './admin/pages/QuestionEditPage/QuestionEditPage';
+import ReportPage from './user/pages/ReportPage/ReportPage';
+import ChatPage from './user/pages/ChatPage/ChatPage';
 
 
 function App() {
@@ -62,6 +64,8 @@ useEffect(() => {
         <Route path="/problems" element={<ProblemSet />} />
         <Route path="/solve/:index" element={<SolveProblemPage />} />
          <Route path="/question/addOrUpdate" element={<QuestionEditPage />} />
+         <Route path="/reports" element={<ReportPage />} />
+         <Route path="/chat" element={<ChatPage />} />
     </Routes>
     </Router>
     

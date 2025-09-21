@@ -1,10 +1,76 @@
 /* SolveProblem.module.css */
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #1e1e1e;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+.loadingSpinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #333;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+  text-align: center;
+  padding: 20px;
+}
+
+.errorContainer h3 {
+  color: #ff6b6b;
+  margin-bottom: 10px;
+}
+
+.errorContainer button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: rgba(255, 252, 252, 0.051);
+  color: #e0e0e0;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.errorContainer button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
 .container {
   display: flex;
   flex-direction: row;
   height: 100vh;
-  overflow: auto;
-  background-color: #1e1e1e; /* Dark background for the main container */
+  overflow: hidden;
+  background-color: #1e1e1e;
 }
 
 .leftSection {
@@ -12,44 +78,375 @@
   overflow-y: auto;
   width: 50%;
   max-width: 90%;
-  background-color: #2c2c2c; /* Dark background for left section */
-  border-right: 1px solid #444; /* Subtle border to separate sections */
-  color: #e0e0e0; /* Light text for readability */
-  scrollbar-width: thin; /* Firefox property for thin scrollbar */
-  scrollbar-color: #444 #2c2c2c; /* Thumb color and track color for Firefox */
+  background-color: #2c2c2c;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+.questionContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.questionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  flex-shrink: 0;
+}
+
+.questionTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #f8f8f8;
+}
+
+.questionDifficulty {
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  font-size: 14px;
+  color: #e0e0e0;
+}
+
+.questionContent {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.questionDescription {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #e0e0e0;
+}
+
+.constraintsSection,
+.examplesSection {
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 15px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+.constraintsSection h4,
+.examplesSection h4 {
+  color: #f8f8f8;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.constraintsSection ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.constraintsSection li {
+  margin-bottom: 8px;
+  padding-left: 15px;
+  position: relative;
+}
+
+.constraintsSection li:before {
+  content: "•";
+  color: #e0e0e0;
+  position: absolute;
+  left: 0;
+}
+
+.example {
+  margin-bottom: 15px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  border-left: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.example h5 {
+  color: #f8f8f8;
+  margin-bottom: 8px;
+}
+
+.example p {
+  margin: 5px 0;
+  color: #e0e0e0;
 }
 
 /* WebKit browsers (Chrome, Safari, Edge) Scrollbar */
 .leftSection::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
+  width: 8px;
 }
 
 .leftSection::-webkit-scrollbar-track {
-  background: #2c2c2c; /* Dark background for the scrollbar track */
-  border-radius: 10px; /* Rounded corners for the track */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
 }
 
 .leftSection::-webkit-scrollbar-thumb {
-  background-color: #555; /* Slightly lighter thumb color */
-  border-radius: 10px; /* Rounded corners for the thumb */
-  border: 2px solid #2c2c2c; /* Border around the thumb to create space */
-  transition: background-color 0.3s; /* Smooth transition on hover */
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  transition: background 0.3s ease;
 }
 
 .leftSection::-webkit-scrollbar-thumb:hover {
-  background-color: #666; /* Slightly lighter thumb on hover for a subtle effect */
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.resizeHandle {
+  width: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  cursor: col-resize;
+  transition: background-color 0.3s;
+  flex-shrink: 0;
+}
+
+.resizeHandle:hover {
+  background-color: rgba(255, 255, 255, 0.3);
 }
 
 .rightSection {
-  width: 50%;
-  max-width: 90%;
-  min-width:200px;
-  overflow: auto;
+  flex: 1;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #252526; /* Consistent dark theme background */
-  color: #f0f0f0; /* Light text color */
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+  min-width: 300px;
+  height: 100vh;
+  box-sizing: border-box;
+
+}
+
+.editorContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: visible; /* Allow dropdowns to expand */
+}
+
+/* Monaco Editor container */
+.editorContainer > div {
+  flex: 1;
+  min-height: 0;
+  overflow: visible;
+  margin-top: 4px;
+  
+}
+
+/* Ensure Monaco editor itself doesn't overflow */
+.editorContainer .monaco-editor {
+  height: 100% !important;
+  overflow: hidden;
+}
+
+.editorHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+  flex-shrink: 0;
+  background: transparent;
+  min-height: 36px;
+  position: relative;
+  margin-top: 1px;
+  position: relative;
+  z-index: 10; /* Ensure it's above editor base */
+}
+
+.languageSelector {
+  flex: 1;
+  max-width: 200px;
+  margin-bottom: 5px;
+  
+  
+  z-index: 1000;
+}
+
+/* Ensure dropdowns are visible above editor */
+.languageSelector .react-autocomplete,
+.languageSelector .autocomplete-dropdown,
+.languageSelector .autocomplete-options {
+  position: absolute !important;
+  top: 100% !important;
+  left: 0;
+  right: 0;
+  z-index: 9999 !important;
+  background: #232323;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+  max-height: 220px;
+
+
+  
+}
+
+.editorActions {
+  display: flex;
+  gap: 8px;
+}
+
+.actionButton {
+  padding: 7px 18px;
+  font-size: 13px;
+  border: none;
+  background-color: rgba(255, 252, 252, 0.051);
+  color: #e0e0e0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.actionButton:hover:not(.disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
+  color: #fff;
+}
+
+.actionButton.disabled {
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.testCaseContainer {
+  margin-top: 12px;
+  background: rgba(40,40,40,0.98);
+  border-radius: 12px;
+  border: 1.2px solid rgba(255,255,255,0.13);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  flex-shrink: 0;
+  height: 320px;
+  max-height: 420px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px 8px 12px;
+  gap: 4px;
+}
+
+.testCaseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 22px;
+  margin-bottom: 2px;
+  padding-bottom: 0;
+  border-bottom: none;
+  flex-shrink: 0;
+}
+
+.testCaseHeader h4 {
+  margin: 0;
+  color: #f8f8f8;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-align: left;
+}
+
+.closeTestCaseButton {
+  background: transparent;
+  color: #888;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0 6px;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-left: 8px;
+}
+
+.closeTestCaseButton:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+.testCaseInput {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  color: #e0e0e0;
+  padding: 6px;
+  font-family: 'Courier New', monospace;
+  resize: vertical;
+  min-height: 40px;
+  max-height: 100px;
+  box-sizing: border-box;
+  font-size: 12px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.testCaseInput:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+}
+
+.testCaseActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.testCaseToggle {
+  margin: 8px 0 0 0;
+  text-align: center;
+  flex-shrink: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.testCaseToggle button {
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.04);
+  color: #e0e0e0;
+  border: 1.2px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  font-size: 0.98rem;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: all 0.2s;
+  outline: none;
+  min-width: 80px;
+  max-width: 100%;
+  display: inline-block;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.testCaseToggle button:hover {
+  background: rgba(255,255,255,0.10);
+  color: #fff;
+  border-color: #fff;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  transform: scale(1.04);
 }
 
 .problemHeading {
@@ -59,16 +456,16 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  color: #f8f8f8; /* Bright text for headings */
+  color: #f8f8f8;
 }
 
 .difficulty {
   margin-left: 10px;
   padding: 4px 8px;
-  background-color: #d35400; /* Dark orange for difficulty badge */
-  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
   font-size: 14px;
-  color: #ffffff; /* White text for contrast */
+  color: #e0e0e0;
 }
 
 .feedBackSection {
@@ -83,38 +480,38 @@
   align-items: center;
   gap: 5px;
   font-size: 16px;
-  color: #bdc3c7; /* Light grey text */
+  color: #e0e0e0;
 }
 
 .thumb {
   cursor: pointer;
-  transition: transform 0.2s, color 0.3s; /* Smooth transitions */
-  color: #3498db; /* Light blue for the icons */
+  transition: all 0.2s ease;
+  color: #e0e0e0;
 }
 
 .thumb:hover {
   transform: scale(1.1);
-  color: #2980b9; /* Slightly darker blue on hover */
+  color: #f8f8f8;
 }
 
 .description,
 .examples,
 .constraints {
   margin-bottom: 20px;
-  background: #3b3b3b; /* Dark grey background for content sections */
+  background: rgba(255, 255, 255, 0.05);
   padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  color: #e0e0e0; /* Light text for readability */
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  color: #e0e0e0;
 }
 
 .descriptionHeading,
 .exampleHeading,
 .constraintHeading {
-  font-weight: bold;
+  font-weight: 500;
   margin-bottom: 10px;
   font-size: 18px;
-  color: #ffeb3b; /* Bright yellow for section headings */
+  color: #f8f8f8;
 }
 
 .example {
@@ -125,7 +522,7 @@
 .exampleOutput,
 .exampleExplanation {
   margin: 5px 0;
-  color: #c8c8c8; /* Light grey text for examples */
+  color: #e0e0e0;
 }
 
 .autoCompleteStyle {
@@ -137,40 +534,123 @@
   padding: 10px 20px;
   font-size: 16px;
   border: none;
-  background-color: #2980b9; /* Bright blue button */
-  color: white;
-  border-radius: 5px;
+  background-color: rgba(255, 252, 252, 0.051);
+  color: #e0e0e0;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+  transition: all 0.2s ease;
 }
 
 .SubmitButton:hover {
-  background-color: #21618c; /* Darker blue on hover */
-  transform: translateY(-2px); /* Subtle lift effect on hover */
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.1);
+  transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
-  .container {
+  .mainContainer {
     flex-direction: column;
+    height: auto;
+    min-height: 100vh;
   }
 
+  .leftSection {
+    width: 100%;
+    max-width: 100%;
+    height: 40vh;
+    min-height: 300px;
+  }
+
+  .rightSection {
+    height: 60vh;
+    min-height: 400px;
+  }
+
+  .editorHeader {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    margin-bottom: 8px;
+  }
+
+  .languageSelector {
+    max-width: 100%;
+  }
+
+  .actionButton {
+    padding: 5px 10px;
+    font-size: 11px;
+  }
+
+  .testCaseContainer {
+    height: 380px;
+    max-height: 480px;
+    overflow-y: scroll;
+  
+  }
+
+  .testCaseInput {
+    max-height: 50px;
+    font-size: 11px;
+  }
+
+  .testCaseActions {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .testCaseActions .actionButton {
+    width: 100%;
+  }
+
+  .testCaseToggle {
+    margin-top: 4px;
+    padding: 4px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .leftSection,
   .rightSection {
     padding: 10px;
   }
 
-  .SubmitButton {
-    font-size: 14px;
-    padding: 8px 15px;
+  .questionTitle {
+    font-size: 20px;
+  }
+
+  .testCaseContainer {
+    max-height: 150px;
+    padding: 8px;
+  }
+
+  .testCaseInput {
+    min-height: 40px;
+    max-height: 60px;
+    font-size: 12px;
+  }
+  .testCaseHeader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+  }
+
+
+
+  .testCaseToggle button {
+    padding: 6px 12px;
+    font-size: 13px;
   }
 }
 
 .editor {
   flex: 1;
-  border: 1px solid #444; /* Subtle border for separation */
-  border-radius: 8px; /* Rounded corners for a modern look */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-  background-color: #1e1e1e; /* Dark background matching the rest of the theme */
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
+  border: 1px solid #444;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  background-color: #1e1e1e;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   transition: height 0.3s ease;
 }
 
@@ -190,7 +670,7 @@
 
 @media (max-width: 768px) {
   .problemHeading {
-    font-size: 20px; /* Adjust heading size for smaller screens */
+    font-size: 20px;
   }
 }
 
@@ -198,190 +678,135 @@
 .starImage {
   width: 50px;
   height: 50px;
-
-  border-radius: 50%;
-  position: relative;
-  transition: transform 0.5s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: transform 0.3s ease;
 }
 
 .starImage:hover {
-  transform: scale(1.2) rotate(20deg); /* Slight grow and rotate on hover */
-  box-shadow: 0 0 15px rgba(255, 255, 0, 0.8), 0 0 30px rgba(255, 255, 0, 0.5); /* Glow effect */
+  transform: rotate(360deg) scale(1.1);
 }
 
-/* Sparkle Effect */
-/* Main AI Section */
 .aiSection {
-  border: 2px solid black;
-  border-radius: 5px;
-  width: 680px;
-  padding: 10px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  transition: box-shadow 0.5s ease-in-out, border-color 0.5s ease-in-out;
+  margin-top: 20px;
 }
 
-/* Glowing effect on hover */
 .aiSection:hover {
-  border-color: #2e2b1c; /* Golden glow border */
-  box-shadow: 0 0 20px rgba(22, 21, 8, 0.8), 0 0 40px rgba(255, 223, 0, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
-/* Sparkle effect with pseudo-elements */
 .aiSection:hover::before,
 .aiSection:hover::after {
-  content: "";
+  content: '';
   position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #fff;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 10px rgba(205, 7, 7, 0.6);
-  animation: sparkle 1s infinite alternate ease-in-out;
-  opacity: 0;
+  animation: sparkle 1.5s infinite;
 }
 
-/* First sparkle */
 .aiSection:hover::before {
-  top: -10px;
-  left: 50%;
-  width: 10px;
-  height: 10px;
-  animation-delay: 0.2s;
+  top: 20%;
+  left: 20%;
+  animation-delay: 0s;
 }
 
-/* Second sparkle */
 .aiSection:hover::after {
-  bottom: -10px;
-  right: 50%;
-  width: 15px;
-  height: 15px;
-  animation-delay: 0.6s;
-}
-
-/* Additional Sparkle Elements */
-.aiSection:hover .sparkle-1,
-.aiSection:hover .sparkle-2,
-.aiSection:hover .sparkle-3 {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-  animation: sparkle 1s infinite alternate ease-in-out;
-  opacity: 0;
-}
-
-.aiSection:hover .sparkle-1 {
-  top: 20px;
-  left: 10px;
-  width: 8px;
-  height: 80px;
-  animation-delay: 0.3s;
-}
-
-.aiSection:hover .sparkle-2 {
-  top: 50%;
-  left: -10px;
-  width: 12px;
-  height: 12px;
+  top: 60%;
+  right: 20%;
   animation-delay: 0.5s;
 }
 
+.aiSection:hover .sparkle-1,
+.aiSection:hover .sparkle-2,
 .aiSection:hover .sparkle-3 {
-  bottom: 20px;
-  right: 10px;
-  width: 10px;
-  height: 10px;
+  animation: sparkle 1.5s infinite;
+}
+
+.aiSection:hover .sparkle-1 {
+  animation-delay: 0.2s;
+}
+
+.aiSection:hover .sparkle-2 {
   animation-delay: 0.7s;
 }
 
-/* Keyframes for sparkling effect */
+.aiSection:hover .sparkle-3 {
+  animation-delay: 1.2s;
+}
+
 @keyframes sparkle {
-  0% {
-    transform: scale(0);
+  0%, 100% {
     opacity: 0;
+    transform: scale(0);
   }
   50% {
-    transform: scale(1.2);
     opacity: 1;
-  }
-  100% {
     transform: scale(1);
-    opacity: 0;
   }
 }
 
 .testCaseSubmitter {
-  padding: 10px;
+  margin-top: 10px;
 }
 
-.testCaseInput {
-  height: 150px; /* Larger height for more input visibility */
-  width: 100%;
-  background-color: rgb(61, 45, 45);
-  color: white;
-  border: 1px solid #dfe1e5; /* Light border like LeetCode */
-  border-radius: 1px;
-  padding: 10px;
-  font-size: 14px;
-
-  box-sizing: border-box;
-  margin-bottom: 10px; /* Add margin to separate from buttons */
-  resize: none; /* Prevent resizing */
-}
-
-.submitButton:hover {
-  background-color: #0056b3;
-}
 .testCaseSubmitterAndTogglerButtons {
-  display: flex; /* Flexbox to align items in a row */
-  justify-content: flex-end; /* Align buttons to the right */
-  gap: 10px; /* Space between buttons */
-  margin-top: 80px;
-  margin-right: 20px; /* Add some top margin for separation */
-  transition: height 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .submitButton {
-  width: 90px;
-  height: 40px;
-  font-size: 16px;
-  margin-left: 7px;
-  color: #f7e5e5;
-  background-color: #1c0d0d;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  background-color: #2980b9;
+  color: white;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .toggleShowTestCaseSubmitter {
-  width: 40px;
-  height: 40px;
-  font-size: 16px;
-  color: #f7e5e5;
-  background-color: #1c0d0d;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 5px 10px;
+  background-color: #3b3b3b;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  border-radius: 3px;
   cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 12px;
 }
 
 .toggleShowTestCaseSubmitter:hover,
-.submitButton:hover {
-  background-color: #e2e2e2; /* Add a hover effect */
+.toggleShowTestCaseSubmitter:focus {
+  background-color: #4a4a4a;
 }
 
 .stretcher {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 10px; /* This is the width of the stretcher */
-  cursor: ew-resize; /* Indicates horizontal resize cursor */
-  z-index: 10; /* Ensure the stretcher is above the sections */
-  background-color: #ddd; /* Change color to fit your design */
+  width: 4px;
+  background-color: #444;
+  cursor: col-resize;
+  transition: background-color 0.3s;
 }
+
 .containerWrapper {
   display: flex;
-  position: relative;
-  width: 100%;
+  flex-direction: row;
+  height: 100vh;
+  overflow: auto;
 }
 
